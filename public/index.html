@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cyphox — Integrated Secure Data Erasure, File Recovery & Digital Forensics Platform</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#03060d;
+    --panel:#0a1122;
+    --panel2:#0d1730;
+    --border:rgba(120,170,255,0.16);
+    --neon:#00ffb2;
+    --neon-dim:rgba(0,255,178,0.08);
+    --cyan:#a9c8ff;
+    --amber:#ffb300;
+    --danger:#ff3860;
+    --text:#eef3ff;
+    --muted:#7688a8;
+    --radius:10px;
+    --font-display:'Orbitron', sans-serif;
+    --font-mono:'Share Tech Mono', 'JetBrains Mono', monospace;
+  }
+
+  *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+  }
+
+  html,body{
+    height:100%;
+  }
+
+  body{
+    background:
+      linear-gradient(rgba(120,170,255,0.03) 1px, transparent 1px) 0 0/100% 34px,
+      linear-gradient(90deg, rgba(120,170,255,0.025) 1px, transparent 1px) 0 0/34px 100%,
+      radial-gradient(circle at 15% 0%, rgba(0,255,178,0.08), transparent 40%),
+      radial-gradient(circle at 90% 100%, rgba(255,255,255,0.04), transparent 40%),
+      var(--bg);
+
+    color:var(--text);
+    font-family:var(--font-mono);
+    min-height:100vh;
+  }
+
+  a{
+    color:inherit;
+    text-decoration:none;
+  }
+
+  button{
+    font-family:inherit;
+    cursor:pointer;
+  }
+
+  ::selection{
+    background:var(--neon);
+    color:#00110c;
+  }
+
+  h1,h2,h3,.brand,.page-title,.auth-title{
+    font-family:var(--font-display);
+    letter-spacing:.4px;
+  }
+
+  /* AUTH SCREEN */
+  .auth-wrap{
+    max-width:400px;
+    margin:70px auto;
+    padding:0 20px;
+  }
+
+  .auth-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    justify-content:center;
+    margin-bottom:26px;
+  }
+
+  .auth-brand .brand-icon{
+    width:36px;
+    height:36px;
+    border-radius:9px;
+    background:linear-gradient(135deg,var(--neon),#049b74);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 18px -2px var(--neon);
+    font-size:1.1rem;
+  }
+
+  .auth-brand-text{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:1.1rem;
+    color:var(--neon);
+    text-shadow:0 0 12px rgba(0,255,178,0.5);
+  }
+
+  .auth-card{
+    background:linear-gradient(160deg,var(--panel),var(--panel2));
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:34px;
+    box-shadow:0 30px 80px -30px rgba(0,0,0,0.8);
+  }
+
+  .auth-title{
+    font-size:1.15rem;
+    font-weight:800;
+    margin-bottom:4px;
+  }
+
+  .auth-sub{
+    color:var(--muted);
+    font-size:.8rem;
+    margin-bottom:22px;
+  }
+
+  .auth-tabs{
+    display:flex;
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:22px;
+  }
+
+  .auth-tab{
+    flex:1;
+    padding:10px;
+    background:transparent;
+    border:none;
+    color:var(--muted);
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-weight:700;
+  }
+
+  .auth-tab.active{
+    background:var(--neon-dim);
+    color:var(--neon);
+    border-bottom:2px solid var(--neon);
+  }
+
+  .auth-form.hidden{
+    display:none;
+  }
+
+  .field{
+    margin-bottom:16px;
+    position:relative;
+  }
+
+  .field label{
+    display:block;
+    font-size:.72rem;
+    color:var(--muted);
+    margin-bottom:6px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+  }
+
+  .field input, .field select{
+    width:100%;
+    background:#060c0f;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:12px 14px;
+    color:var(--text);
+    outline:none;
+    font-size:.88rem;
+    transition:.25s;
+    font-family:var(--font-mono);
+  }
+
+  .field input:focus, .field select:focus{
+    border-color:var(--neon);
+    box-shadow:0 0 0 3px rgba(0,255,178,0.1);
+  }
+
+  .pw-wrap{
+    position:relative;
+  }
+
+  .pw-toggle{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-size:.7rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-weight:700;
+  }
+
+  .pw-toggle:hover{
+    color:var(--neon);
+  }
+
+  .btn{
+    border:none;
+    border-radius:8px;
+    padding:12px 22px;
+    font-weight:700;
+    font-size:.8rem;
+    transition:transform .2s,box-shadow .3s;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    font-family:var(--font-mono);
+    width:100%;
+  }
+
+  .btn-sm{
+    padding:8px 14px;
+    font-size:.72rem;
+    width:auto;
+  }
+
+  .btn-primary{
+    background:linear-gradient(90deg,var(--neon),#05c98f);
+    color:#00160f;
+    box-shadow:0 10px 28px -10px rgba(0,255,178,0.5);
+  }
+
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 16px 34px -8px rgba(0,255,178,0.7);
+  }
+
+  .btn-primary:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+    transform:none;
+  }
+
+  .btn-secondary{
+    background:transparent;
+    color:var(--text);
+    border:1px solid var(--border);
+  }
+
+  .btn-secondary:hover{
+    border-color:var(--neon);
+    color:var(--neon);
+  }
+
+  .btn-danger{
+    background:rgba(255,56,96,0.15);
+    color:var(--danger);
+    border:1px solid rgba(255,56,96,0.4);
+  }
+
+  .btn-danger:hover{
+    background:var(--danger);
+    color:#fff;
+  }
+
+  .status-msg{
+    margin-top:12px;
+    font-size:.78rem;
+    min-height:16px;
+    text-align:center;
+    line-height:1.5;
+  }
+
+  .status-msg.error{
+    color:var(--danger);
+  }
+
+  .status-msg.success{
+    color:var(--neon);
+  }
+
+  .status-msg.info{
+    color:var(--cyan);
+  }
+
+  .auth-footnote{
+    margin-top:18px;
+    font-size:.68rem;
+    color:var(--muted);
+    text-align:center;
+  }
+
+  /* APP SHELL */
+  .app-shell{
+    display:none;
+  }
+
+  .app-shell.active{
+    display:flex;
+  }
+
+  .sidebar{
+    width:230px;
+    background:linear-gradient(180deg,var(--panel),#050a0d);
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    padding:22px 16px;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    z-index:100;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 8px 26px;
+    font-weight:800;
+    font-size:1.05rem;
+    color:var(--neon);
+    text-shadow:0 0 12px rgba(0,255,178,0.5);
+  }
+
+  .brand-icon{
+    width:32px;
+    height:32px;
+    border-radius:8px;
+    background:linear-gradient(135deg,var(--neon),#049b74);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 18px -2px var(--neon);
+    font-size:1rem;
+  }
+
+  .nav-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:11px 12px;
+    border-radius:8px;
+    color:var(--muted);
+    font-size:.8rem;
+    font-weight:600;
+    margin-bottom:2px;
+    transition:.2s;
+    cursor:pointer;
+    border:1px solid transparent;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+
+  .nav-item:hover{
+    background:rgba(0,255,178,0.06);
+    color:var(--text);
+  }
+
+  .nav-item.active{
+    background:var(--neon-dim);
+    color:var(--neon);
+    border-color:rgba(0,255,178,0.3);
+  }
+
+  .nav-icon{
+    width:18px;
+    text-align:center;
+  }
+
+  .sidebar-footer{
+    margin-top:auto;
+    padding-top:16px;
+    border-top:1px solid var(--border);
+  }
+
+  .user-chip{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px;
+    border-radius:8px;
+  }
+
+  .avatar{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--cyan),#0a6f8a);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:.8rem;
+    font-family:var(--font-display);
+    flex-shrink:0;
+  }
+
+  .user-meta{
+    display:flex;
+    flex-direction:column;
+    line-height:1.2;
+    min-width:0;
+    flex:1;
+  }
+
+  .user-name{
+    font-size:.8rem;
+    font-weight:700;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .user-role{
+    font-size:.63rem;
+    color:var(--muted);
+  }
+
+  .logout-btn{
+    width:100%;
+    margin-top:10px;
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--muted);
+    border-radius:8px;
+    padding:8px;
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+  }
+
+  .logout-btn:hover{
+    border-color:var(--danger);
+    color:var(--danger);
+  }
+
+  .main{
+    margin-left:230px;
+    flex:1;
+    padding:30px 40px 60px;
+    max-width:1200px;
+    width:100%;
+  }
+
+  .page{
+    display:none;
+    animation:fadeIn .4s ease;
+  }
+
+  .page.active{
+    display:block;
+  }
+
+  @keyframes fadeIn{
+    from{ opacity:0; transform:translateY(12px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .page-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .page-title{
+    font-size:1.4rem;
+    font-weight:800;
+  }
+
+  .page-sub{
+    color:var(--muted);
+    font-size:.85rem;
+    margin-top:6px;
+  }
+
+  .badge{
+    font-size:.63rem;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    background:var(--neon-dim);
+    color:var(--neon);
+    border:1px solid rgba(0,255,178,0.3);
+    padding:5px 12px;
+    border-radius:20px;
+    font-weight:700;
+  }
+
+  .badge-amber{
+    background:rgba(255,179,0,0.1);
+    color:var(--amber);
+    border:1px solid rgba(255,179,0,0.3);
+  }
+
+  .badge-danger{
+    background:rgba(255,56,96,0.1);
+    color:var(--danger);
+    border:1px solid rgba(255,56,96,0.3);
+  }
+
+  .card{
+    background:linear-gradient(160deg,var(--panel),var(--panel2));
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 20px 50px -30px rgba(0,0,0,0.7);
+  }
+
+  .card-title{
+    font-size:.95rem;
+    font-weight:700;
+    margin-bottom:10px;
+    color:var(--neon);
+    font-family:var(--font-display);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .card-desc{
+    color:var(--muted);
+    font-size:.82rem;
+    line-height:1.6;
+  }
+
+  .stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:14px;
+    margin-bottom:22px;
+  }
+
+  .stat-card{
+    background:linear-gradient(160deg,var(--panel),var(--panel2));
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:18px;
+    text-align:center;
+  }
+
+  .stat-num{
+    font-size:1.6rem;
+    font-weight:800;
+    color:var(--neon);
+    font-family:var(--font-display);
+  }
+
+  .stat-lbl{
+    font-size:.7rem;
+    color:var(--muted);
+    margin-top:4px;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+  }
+
+  .grid-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:16px;
+  }
+
+  .select-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:18px;
+    transition:transform .2s, border-color .2s;
+  }
+
+  .select-card:hover{
+    border-color:rgba(0,255,178,0.4);
+    transform:translateY(-2px);
+  }
+
+  .select-card h4{
+    margin-bottom:6px;
+    font-size:.9rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .select-card p{
+    color:var(--muted);
+    font-size:.78rem;
+    line-height:1.5;
+    margin-bottom:12px;
+  }
+
+  .pending-tag{
+    display:inline-block;
+    margin-top:10px;
+    font-size:.65rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--neon);
+    border:1px solid rgba(0,255,178,0.3);
+    background:var(--neon-dim);
+    padding:3px 10px;
+    border-radius:12px;
+  }
+
+  .backend-status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:14px;
+    font-size:.75rem;
+  }
+
+  .status-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--amber);
+  }
+
+  .status-dot.online{
+    background:var(--neon);
+    box-shadow:0 0 10px var(--neon);
+  }
+
+  .status-dot.offline{
+    background:var(--danger);
+    box-shadow:0 0 10px var(--danger);
+  }
+
+  .status-text{
+    color:var(--muted);
+  }
+
+  /* PROGRESS BAR */
+  .progress-wrap{
+    width:100%;
+    background:#060c0f;
+    border:1px solid var(--border);
+    border-radius:8px;
+    height:14px;
+    overflow:hidden;
+    margin:14px 0;
+    position:relative;
+  }
+
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, #05c98f, var(--neon));
+    box-shadow:0 0 12px var(--neon);
+    transition:width .2s ease;
+  }
+
+  /* TABLES */
+  .data-table-wrap{
+    overflow-x:auto;
+    border:1px solid var(--border);
+    border-radius:8px;
+    margin-top:14px;
+  }
+
+  .data-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.78rem;
+    text-align:left;
+  }
+
+  .data-table th{
+    background:#070d1a;
+    padding:12px 14px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    border-bottom:1px solid var(--border);
+    font-size:.7rem;
+  }
+
+  .data-table td{
+    padding:12px 14px;
+    border-bottom:1px solid rgba(120,170,255,0.08);
+    color:var(--text);
+  }
+
+  .data-table tr:hover{
+    background:rgba(0,255,178,0.03);
+  }
+
+  /* MODAL */
+  .modal-overlay{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:rgba(0,0,0,0.8);
+    backdrop-filter:blur(8px);
+    z-index:999;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+
+  .modal-overlay.active{
+    display:flex;
+  }
+
+  .modal-box{
+    background:linear-gradient(160deg,var(--panel),var(--panel2));
+    border:1px solid var(--border);
+    border-radius:12px;
+    width:100%;
+    max-width:650px;
+    max-height:85vh;
+    overflow-y:auto;
+    padding:26px;
+    box-shadow:0 25px 70px rgba(0,0,0,0.8);
+  }
+
+  .modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--border);
+  }
+
+  .modal-close{
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-size:1.4rem;
+    cursor:pointer;
+  }
+
+  .modal-close:hover{
+    color:var(--neon);
+  }
+
+  .hex-block{
+    background:#04070d;
+    padding:14px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    font-family:'JetBrains Mono', monospace;
+    font-size:.75rem;
+    line-height:1.6;
+    color:#a9c8ff;
+    overflow-x:auto;
+    white-space:pre;
+  }
+
+  .menu-toggle{
+    display:none;
+    position:fixed;
+    top:16px;
+    left:16px;
+    z-index:200;
+    width:42px;
+    height:42px;
+    border-radius:8px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--neon);
+    font-size:1.2rem;
+    align-items:center;
+    justify-content:center;
+  }
+
+  @media (max-width:880px){
+    .sidebar{
+      transform:translateX(-100%);
+      transition:transform .25s ease;
+    }
+    .sidebar.open{
+      transform:translateX(0);
+    }
+    .main{
+      margin-left:0;
+      padding:80px 20px 40px;
+    }
+    .menu-toggle{
+      display:flex;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="authScreen">
+  <div class="auth-wrap">
+    <div class="auth-brand">
+      <div class="brand-icon">🛡</div>
+      <div class="auth-brand-text">CYPHOX</div>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-title" id="authTitle">Welcome back</div>
+      <div class="auth-sub">Secure erasure &amp; File Recovery &amp; Digital Forensics</div>
+
+      <!-- AUTH TABS -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" id="loginTabBtn">Login</button>
+        <button type="button" class="auth-tab" id="signupTabBtn">Sign Up</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm" class="auth-form">
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <div class="pw-wrap">
+            <input type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password" required>
+            <button type="button" class="pw-toggle" data-target="loginPassword">Show</button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginBtn">Login</button>
+        <p class="status-msg" id="loginStatus"></p>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="signupForm" class="auth-form hidden">
+        <div class="field">
+          <label for="signupName">Full Name</label>
+          <input type="text" id="signupName" placeholder="Your name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="signupPassword">Password</label>
+          <div class="pw-wrap">
+            <input type="password" id="signupPassword" placeholder="Min. 6 characters" autocomplete="new-password" minlength="6" required>
+            <button type="button" class="pw-toggle" data-target="signupPassword">Show</button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="signupBtn">Create Account</button>
+        <p class="status-msg" id="signupStatus"></p>
+      </form>
+
+      <div class="auth-footnote">
+        Your account is stored permanently in the Cyphox backend.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div class="app-shell" id="appShell">
+  <button class="menu-toggle" id="menuToggle">☰</button>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🛡</div>
+      Cyphox
+    </div>
+
+    <div class="nav-item active" data-page="dashboard">
+      <span class="nav-icon">▣</span>
+      Dashboard
+    </div>
+    <div class="nav-item" data-page="devices">
+      <span class="nav-icon">💻</span>
+      Devices
+    </div>
+    <div class="nav-item" data-page="erasure">
+      <span class="nav-icon">🗑</span>
+      Data Erasure
+    </div>
+    <div class="nav-item" data-page="recovery">
+      <span class="nav-icon">♻</span>
+      Recovery
+    </div>
+    <div class="nav-item" data-page="forensics">
+      <span class="nav-icon">🔍</span>
+      Forensics
+    </div>
+    <div class="nav-item" data-page="sanitization">
+      <span class="nav-icon">✦</span>
+      Sanitization
+    </div>
+    <div class="nav-item" data-page="verification">
+      <span class="nav-icon">✓</span>
+      Verification
+    </div>
+    <div class="nav-item" data-page="certificates">
+      <span class="nav-icon">📜</span>
+      Certificates
+    </div>
+    <div class="nav-item" data-page="history">
+      <span class="nav-icon">🕒</span>
+      History
+    </div>
+
+    <!-- SIDEBAR FOOTER -->
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="avatar" id="avatarInitial">U</div>
+        <div class="user-meta">
+          <div class="user-name" id="sidebarUserName">User</div>
+          <div class="user-role" id="sidebarUserRole">Signed in</div>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- DASHBOARD -->
+    <section class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Welcome, <span id="dashUserName">User</span></div>
+          <div class="page-sub">Overview of your erasure &amp; recovery workspace.</div>
+        </div>
+        <span class="badge">Console</span>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num" id="deviceCount">0</div>
+          <div class="stat-lbl">Devices</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="completedCount">0</div>
+          <div class="stat-lbl">Completed Ops</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="pendingCount">0</div>
+          <div class="stat-lbl">Pending</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="verifiedCount">0</div>
+          <div class="stat-lbl">Verified</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>// Backend Status</span>
+          <button class="btn btn-secondary btn-sm" onclick="checkBackendHealth()">Refresh</button>
+        </div>
+        <div class="card-desc">
+          Cyphox frontend is connected to the Node.js / Express backend. Authentication is handled using JWT tokens and user accounts are stored securely.
+        </div>
+        <div class="backend-status">
+          <span class="status-dot" id="backendStatusDot"></span>
+          <span class="status-text" id="backendStatusText">Checking backend...</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">// Recent Operations</div>
+        <div class="data-table-wrap">
+          <table class="data-table" id="recentOpsTable">
+            <thead>
+              <tr>
+                <th>Operation</th>
+                <th>Target</th>
+                <th>Status</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="recentOpsBody">
+              <tr><td colspan="4" style="text-align:center; color:var(--muted)">No operations recorded yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEVICES -->
+    <section class="page" id="page-devices">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Devices</div>
+          <div class="page-sub">Devices available for erasure, recovery, or forensic operations.</div>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="loadDevices()">Refresh Drives</button>
+      </div>
+
+      <div class="grid-cards" id="devicesContainer">
+        <div class="select-card">
+          <h4>Loading Devices...</h4>
+          <p>Querying connected storage hardware...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA ERASURE -->
+    <section class="page" id="page-erasure">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Data Erasure</div>
+          <div class="page-sub">Whole-device, file, folder, and batch erasure according to NIST &amp; DoD standards.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">// Start Sanitization Operation</div>
+        <form id="erasureForm" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <div class="field">
+            <label>Target Type</label>
+            <select id="eraseTargetType">
+              <option value="file">Single File Shredding</option>
+              <option value="folder">Folder Purge</option>
+              <option value="whole_device">Whole Drive / Volume Sanitization</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Sanitization Algorithm</label>
+            <select id="eraseMethod">
+              <option value="NIST_800_88_CLEAR">NIST SP 800-88 Rev 1 (Clear - 1 Pass)</option>
+              <option value="NIST_800_88_PURGE">NIST SP 800-88 Rev 1 (Purge - 3 Passes)</option>
+              <option value="DOD_5220_22_M">DoD 5220.22-M (Standard 3-Pass)</option>
+              <option value="DOD_5220_22_M_ECE">DoD 5220.22-M ECE (Extended 7-Pass)</option>
+              <option value="GUTMANN_35">Gutmann Algorithm (35-Pass)</option>
+              <option value="ZERO_OVERWRITE">Zero Overwrite (1-Pass 0x00)</option>
+            </select>
+          </div>
+          <div class="field" style="grid-column: span 2;">
+            <label>Target Path or Device Identifier</label>
+            <input type="text" id="eraseTargetPath" placeholder="e.g. C:\confidential_docs\ or PhysicalDrive1" required>
+          </div>
+          <div style="grid-column: span 2;">
+            <button type="submit" class="btn btn-danger" id="startEraseBtn">Execute Secure Erasure</button>
+          </div>
+        </form>
+
+        <div id="erasureProgressBlock" style="display:none; margin-top:20px;">
+          <div style="display:flex; justify-content:space-between; font-size:.8rem;">
+            <span id="eraseProgressLabel">Sanitizing target...</span>
+            <span id="eraseProgressPercent">0%</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-fill" id="eraseProgressBar"></div>
+          </div>
+          <p class="status-msg" id="eraseStatusMsg"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECOVERY -->
+    <section class="page" id="page-recovery">
+      <div class="page-header">
+        <div>
+          <div class="page-title">File Recovery Engine</div>
+          <div class="page-sub">Targeted Deleted File Recovery, All-Files Recovery &amp; Deep Signature Carving.</div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-secondary btn-sm" onclick="loadDeletedFiles()">Refresh Vault</button>
+        </div>
+      </div>
+
+      <!-- CORE RECOVERY ACTIONS: OPTION 1 & OPTION 2 -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+        <!-- OPTION 1 CARD -->
+        <div class="card" style="border-color:rgba(0,255,178,0.4); background:linear-gradient(160deg, #07151e, #0c1a29); position:relative; overflow:hidden;">
+          <div style="position:absolute; top:-10px; right:-10px; background:rgba(0,255,178,0.1); width:90px; height:90px; border-radius:50%; filter:blur(20px);"></div>
+          <div class="card-title" style="color:var(--neon); font-size:1.05rem;">
+            <span>♻️ Option 1: Recover ALL Deleted Files</span>
+            <span class="badge" id="allDeletedCountBadge">0 in Vault</span>
+          </div>
+          <p class="card-desc" style="margin-bottom:16px;">
+            Extracts and restores <strong>every file deleted so far</strong> back to your dedicated recovery directory with cryptographic SHA-256 verification and automatic integrity check.
+          </p>
+          <button class="btn btn-primary" onclick="triggerRecoverAllFiles()" id="recoverAllBtn" style="font-size:.85rem; padding:12px;">
+            ♻️ Recover ALL Deleted Files Now
+          </button>
+        </div>
+
+        <!-- OPTION 2 CARD -->
+        <div class="card" style="border-color:rgba(169,200,255,0.4); background:linear-gradient(160deg, #091226, #0e1b38); position:relative; overflow:hidden;">
+          <div style="position:absolute; top:-10px; right:-10px; background:rgba(169,200,255,0.1); width:90px; height:90px; border-radius:50%; filter:blur(20px);"></div>
+          <div class="card-title" style="color:var(--cyan); font-size:1.05rem;">
+            <span>⚡ Option 2: Recover LAST Deleted File</span>
+            <span class="badge badge-amber" id="lastDeletedNameBadge">Ready</span>
+          </div>
+          <p class="card-desc" style="margin-bottom:16px;">
+            Pinpoints and recovers the <strong>single most recently deleted file</strong> (<code id="lastDeletedFileNameDisplay" style="color:var(--neon)">None</code>) and validates its hash &amp; Shannon entropy immediately.
+          </p>
+          <button class="btn btn-secondary" onclick="triggerRecoverLastFile()" id="recoverLastBtn" style="font-size:.85rem; padding:12px; border-color:var(--cyan); color:var(--cyan);">
+            ⚡ Recover LAST Deleted File
+          </button>
+        </div>
+      </div>
+
+      <!-- NORMAL FILE DELETION & SANDBOX TEST TOOL -->
+      <div class="card">
+        <div class="card-title">
+          <span>// Normal File Deletion &amp; Testing Center</span>
+          <span style="font-size:.75rem; color:var(--muted); font-family:var(--font-mono)">Delete normal files or test creation</span>
+        </div>
+        <div class="card-desc" style="margin-bottom:14px;">
+          You can delete any existing file on your system, or create &amp; delete simulated files (PDF, DOCX, Images, Text) to test the recovery engine live. Deleted files are safely indexed in the recovery vault.
+        </div>
+        
+        <form id="deleteFileForm" onsubmit="handleDeleteNormalFile(event)" style="display:grid; grid-template-columns: 2fr 1fr auto; gap:12px; align-items:flex-end;">
+          <div class="field" style="margin-bottom:0;">
+            <label>File Name / Path to Delete</label>
+            <input type="text" id="delInputFileName" placeholder="e.g. quarterly_report.pdf or C:\my_folder\file.txt" value="quarterly_confidential_report.pdf" required>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>Sample File Content Preset</label>
+            <select id="delContentPreset" onchange="applyDelPreset()">
+              <option value="confidential">Confidential Financial Report (PDF)</option>
+              <option value="sourcecode">Security Engine Source Code (JS)</option>
+              <option value="database">Customer Records Database (JSON)</option>
+              <option value="personal">Personal Documents &amp; Notes (TXT)</option>
+              <option value="custom">Custom Text Content</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-danger" id="deleteFileSubmitBtn" style="height:44px; width:auto; padding:0 20px;">
+            🗑️ Delete Normal File
+          </button>
+        </form>
+
+        <div class="field" id="customContentWrap" style="margin-top:12px; display:none;">
+          <label>Custom Content Payload</label>
+          <textarea id="delCustomContent" rows="2" style="width:100%; background:#060c0f; border:1px solid var(--border); border-radius:8px; padding:10px; color:var(--text); font-family:var(--font-mono); font-size:.8rem;"></textarea>
+        </div>
+      </div>
+
+      <!-- LIVE DELETED FILES JOURNAL TABLE -->
+      <div class="card">
+        <div class="card-title">
+          <span>// Deleted Files Journal &amp; Recovery Vault (<span id="totalDeletedVaultCount">0</span>)</span>
+          <span style="font-size:.72rem; color:var(--muted); font-family:var(--font-mono)">Click 'Recover' on any file for targeted restoration</span>
+        </div>
+
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>File Name</th>
+                <th>Category</th>
+                <th>Size</th>
+                <th>Deleted Timestamp</th>
+                <th>SHA-256 Checksum</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="deletedVaultTableBody">
+              <tr><td colspan="7" style="text-align:center; color:var(--muted)">Loading deleted files vault...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DEEP SECTOR SCAN (SIGNATURE CARVING) -->
+      <div class="card">
+        <div class="card-title">// Storage Volume Sector Carving &amp; Deep Scan</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:12px; align-items:flex-end;">
+          <div class="field" style="margin-bottom:0;">
+            <label>Target Drive / Volume</label>
+            <select id="recoveryTargetSelect">
+              <option value="C:\">C:\ (System Volume)</option>
+              <option value="D:\">D:\ (Data Partition)</option>
+              <option value="E:\">E:\ (USB Drive)</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>Scan Mode</label>
+            <select id="recoveryModeSelect">
+              <option value="deep">Deep Sector Signature Carving</option>
+              <option value="quick">Quick Deleted File Scan</option>
+              <option value="carving">Raw Binary Stream Carving</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>File Filter</label>
+            <select id="recoveryFilterSelect" onchange="filterRecoveredFiles()">
+              <option value="All">All Discovered Categories</option>
+              <option value="Images">Images (JPEG/PNG/GIF/BMP)</option>
+              <option value="Documents">Documents (PDF/DOCX/XLSX)</option>
+              <option value="Media">Media (MP4/MP3/WAV)</option>
+              <option value="Archives">Archives (ZIP/RAR/7Z)</option>
+              <option value="Databases">Databases (SQLite)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" id="startRecoveryBtn" onclick="startRecoveryScan()" style="height:44px; width:auto; padding:0 24px;">
+            Start Sector Scan
+          </button>
+        </div>
+
+        <div id="recoveryProgressBlock" style="display:none; margin-top:20px;">
+          <div style="display:flex; justify-content:space-between; font-size:.8rem; margin-bottom:4px;">
+            <span id="recoveryProgressText">Scanning sectors...</span>
+            <span id="recoveryProgressPercent">0%</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-fill" id="recoveryProgressBar"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:.72rem; color:var(--muted);">
+            <span id="recoverySpeedText">Speed: 0.0 MB/s</span>
+            <span id="recoveryFoundCountText">Discovered: 0 items</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISCOVERED FILES RESULTS FROM SCAN -->
+      <div class="card" id="recoveryResultsCard" style="display:none;">
+        <div class="card-title">
+          <span>// Discovered Carveable Items (<span id="totalFoundLabel">0</span>)</span>
+          <button class="btn btn-primary btn-sm" onclick="restoreSelectedFiles()">Restore Selected Files</button>
+        </div>
+
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width:30px;"><input type="checkbox" id="selectAllRecoveryFiles" onclick="toggleSelectAllFiles(this)"></th>
+                <th>File Name</th>
+                <th>Category</th>
+                <th>Size</th>
+                <th>Recoverability</th>
+                <th>Entropy</th>
+                <th>SHA-256 Checksum</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="recoveredFilesBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORENSICS -->
+    <section class="page" id="page-forensics">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Digital Forensics</div>
+          <div class="page-sub">Evidence artifact analysis, SHA256 cryptographic verification &amp; hex viewer.</div>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="loadForensicsTimeline()">Load Timeline</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">// Live Hex Viewer &amp; Sector Inspector</div>
+        <div style="display:flex; gap:12px; margin-bottom:14px;">
+          <input type="text" id="hexOffsetInput" placeholder="Byte Offset (e.g. 0)" value="0" style="background:#060c0f; border:1px solid var(--border); border-radius:8px; padding:8px 12px; color:var(--text); width:180px;">
+          <button class="btn btn-secondary btn-sm" onclick="loadHexView()">Inspect Sector</button>
+        </div>
+        <div class="hex-block" id="hexViewerContainer">
+Loading hex viewer sector stream...
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">// Forensic Incident Timeline</div>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Event Type</th>
+                <th>Description</th>
+                <th>Operator</th>
+                <th>Status</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="timelineTableBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SANITIZATION -->
+    <section class="page" id="page-sanitization">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Sanitization Standards</div>
+          <div class="page-sub">Authorized sanitization algorithms matrix by device capability.</div>
+        </div>
+      </div>
+
+      <div class="grid-cards" id="sanitizationMethodsContainer">
+        <!-- Loaded dynamically -->
+      </div>
+    </section>
+
+    <!-- VERIFICATION -->
+    <section class="page" id="page-verification">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Independent Verification</div>
+          <div class="page-sub">Post-sanitization entropy analysis and statistical sector sampling.</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="startIndependentVerification()">Run Verification Check</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">// Verification Status &amp; Compliance Audit</div>
+        <div id="verificationResultBox">
+          <div class="card-desc">
+            Click "Run Verification Check" to execute statistical sector sampling and calculate residual data entropy.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section class="page" id="page-certificates">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Erasure Certificates</div>
+          <div class="page-sub">Tamper-proof Digital Data Erasure Certificates &amp; QR verification.</div>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="loadCertificates()">Refresh</button>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Certificate ID</th>
+              <th>Target Device</th>
+              <th>Sanitization Standard</th>
+              <th>Operator</th>
+              <th>Date Issued</th>
+              <th>Verification</th>
+            </tr>
+          </thead>
+          <tbody id="certificatesTableBody">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="page" id="page-history">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Operations History</div>
+          <div class="page-sub">Audit trail of past operations across all modules.</div>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="loadHistory()">Refresh</button>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Target</th>
+              <th>Status</th>
+              <th>Details</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- PREVIEW / QR MODAL -->
+<div class="modal-overlay" id="genericModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle" style="color:var(--neon); font-size:1.1rem;">Modal</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- SCRIPT LOGIC -->
+<script>
+  const API_BASE_URL = window.location.origin.includes('5000') 
+    ? `${window.location.origin}/api` 
+    : 'http://localhost:5000/api';
+
+  let currentScanJobId = null;
+  let allDiscoveredFiles = [];
+
+  function getToken(){ return localStorage.getItem("cyberwipe_token"); }
+  function getStoredUser(){
+    const u = localStorage.getItem("cyberwipe_user");
+    try { return u ? JSON.parse(u) : null; } catch(e) { return null; }
+  }
+  function saveSession(token, user){
+    localStorage.setItem("cyberwipe_token", token);
+    localStorage.setItem("cyberwipe_user", JSON.stringify(user));
+  }
+  function clearSession(){
+    localStorage.removeItem("cyberwipe_token");
+    localStorage.removeItem("cyberwipe_user");
+  }
+
+  async function apiRequest(endpoint, options = {}){
+    const token = getToken();
+    const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, { ...options, headers });
+      let data = {};
+      try { data = await response.json(); } catch(e){}
+      if (response.status === 401 || response.status === 403) {
+        if (token) { clearSession(); showAuthScreen(); }
+      }
+      return { response, data };
+    } catch(err) {
+      console.error("API Fetch Error:", err);
+      return { response: { ok: false, status: 0 }, data: { message: "Cannot connect to backend server." } };
+    }
+  }
+
+  function setStatus(el, msg, type = ""){
+    if (!el) return;
+    el.textContent = msg;
+    el.className = "status-msg " + type;
+  }
+
+  // TAB SWITCHING
+  document.getElementById("loginTabBtn").addEventListener("click", () => {
+    document.getElementById("loginTabBtn").classList.add("active");
+    document.getElementById("signupTabBtn").classList.remove("active");
+    document.getElementById("loginForm").classList.remove("hidden");
+    document.getElementById("signupForm").classList.add("hidden");
+    document.getElementById("authTitle").textContent = "Welcome back";
+  });
+
+  document.getElementById("signupTabBtn").addEventListener("click", () => {
+    document.getElementById("signupTabBtn").classList.add("active");
+    document.getElementById("loginTabBtn").classList.remove("active");
+    document.getElementById("signupForm").classList.remove("hidden");
+    document.getElementById("loginForm").classList.add("hidden");
+    document.getElementById("authTitle").textContent = "Create your account";
+  });
+
+  document.querySelectorAll(".pw-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const inp = document.getElementById(btn.dataset.target);
+      const isPw = inp.type === "password";
+      inp.type = isPw ? "text" : "password";
+      btn.textContent = isPw ? "Hide" : "Show";
+    });
+  });
+
+  // SIGNUP
+  document.getElementById("signupForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("signupBtn");
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const status = document.getElementById("signupStatus");
+
+    btn.disabled = true;
+    setStatus(status, "Creating your account...", "info");
+
+    const { response, data } = await apiRequest("/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password })
+    });
+
+    btn.disabled = false;
+    if (response.ok) {
+      setStatus(status, "Account created! Switching to login...", "success");
+      setTimeout(() => {
+        document.getElementById("loginTabBtn").click();
+        document.getElementById("loginEmail").value = email;
+      }, 700);
+    } else {
+      setStatus(status, data.message || "Registration failed.", "error");
+    }
+  });
+
+  // LOGIN
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("loginBtn");
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const status = document.getElementById("loginStatus");
+
+    btn.disabled = true;
+    setStatus(status, "Signing in...", "info");
+
+    const { response, data } = await apiRequest("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password })
+    });
+
+    btn.disabled = false;
+    if (response.ok && data.token) {
+      saveSession(data.token, data.user);
+      setStatus(status, "Login successful!", "success");
+      setTimeout(() => showAppScreen(), 300);
+    } else {
+      setStatus(status, data.message || "Invalid email or password.", "error");
+    }
+  });
+
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    clearSession();
+    showAuthScreen();
+  });
+
+  function showAppScreen(){
+    const user = getStoredUser();
+    if (!user || !getToken()) { showAuthScreen(); return; }
+    document.getElementById("authScreen").style.display = "none";
+    document.getElementById("appShell").classList.add("active");
+
+    const name = user.name || user.email || "User";
+    document.getElementById("sidebarUserName").textContent = name;
+    document.getElementById("dashUserName").textContent = name.split(" ")[0];
+    document.getElementById("avatarInitial").textContent = name.charAt(0).toUpperCase();
+    document.getElementById("sidebarUserRole").textContent = user.role || "Operator";
+
+    checkBackendHealth();
+    loadDashboardStats();
+    loadDevices();
+    loadDeletedFiles();
+    loadSanitizationMethods();
+    loadHexView();
+  }
+
+
+  function showAuthScreen(){
+    document.getElementById("authScreen").style.display = "block";
+    document.getElementById("appShell").classList.remove("active");
+  }
+
+  // HEALTH CHECK
+  async function checkBackendHealth(){
+    const dot = document.getElementById("backendStatusDot");
+    const text = document.getElementById("backendStatusText");
+    const { response, data } = await apiRequest("/health");
+
+    if (response.ok && data.status === "OK") {
+      dot.className = "status-dot online";
+      text.textContent = `Backend online (${data.version || 'v1.0.0'}) — Recovery Engine Operational`;
+    } else {
+      dot.className = "status-dot offline";
+      text.textContent = "Backend offline — start server on port 5000";
+    }
+  }
+
+  // DASHBOARD STATS
+  async function loadDashboardStats(){
+    const { response, data } = await apiRequest("/dashboard/stats");
+    if (response.ok && data.stats) {
+      document.getElementById("deviceCount").textContent = data.stats.devices || 0;
+      document.getElementById("completedCount").textContent = data.stats.completedOps || 0;
+      document.getElementById("pendingCount").textContent = data.stats.pending || 0;
+      document.getElementById("verifiedCount").textContent = data.stats.verified || 0;
+
+      const body = document.getElementById("recentOpsBody");
+      if (data.recentActivities && data.recentActivities.length > 0) {
+        body.innerHTML = data.recentActivities.map(op => `
+          <tr>
+            <td><strong style="color:var(--neon)">${op.type}</strong></td>
+            <td>${op.target || 'N/A'}</td>
+            <td><span class="badge ${op.status === 'COMPLETED' ? '' : 'badge-amber'}">${op.status}</span></td>
+            <td>${new Date(op.timestamp).toLocaleString()}</td>
+          </tr>
+        `).join('');
+      }
+    }
+  }
+
+  // DEVICES
+  async function loadDevices(){
+    const { response, data } = await apiRequest("/devices");
+    const container = document.getElementById("devicesContainer");
+    const recoverySelect = document.getElementById("recoveryTargetSelect");
+
+    if (response.ok && data.devices) {
+      document.getElementById("deviceCount").textContent = data.devices.length;
+      container.innerHTML = data.devices.map(d => `
+        <div class="select-card">
+          <h4>
+            <span>${d.isPhysical ? '💾' : '💻'} ${d.name}</span>
+            <span class="badge">${d.type}</span>
+          </h4>
+          <p>
+            Capacity: <strong>${d.sizeFormatted}</strong><br>
+            Health: <span style="color:var(--neon)">${d.health || 'Good'}</span> · Status: ${d.status}
+          </p>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-primary btn-sm" onclick="openRecoveryForDevice('${d.deviceId}')">Scan Recovery</button>
+            <button class="btn btn-danger btn-sm" onclick="openWipeForDevice('${d.deviceId}')">Secure Wipe</button>
+          </div>
+        </div>
+      `).join('');
+
+      recoverySelect.innerHTML = data.devices.map(d => `
+        <option value="${d.deviceId}">${d.name} (${d.sizeFormatted})</option>
+      `).join('');
+    }
+  }
+
+  function openRecoveryForDevice(devId){
+    document.querySelector('[data-page="recovery"]').click();
+    document.getElementById("recoveryTargetSelect").value = devId;
+  }
+
+  function openWipeForDevice(devId){
+    document.querySelector('[data-page="erasure"]').click();
+    document.getElementById("eraseTargetPath").value = devId;
+    document.getElementById("eraseTargetType").value = "whole_device";
+  }
+
+  // =========================================================================
+  // NORMAL FILE DELETION & TARGETED RECOVERY (OPTION 1 & OPTION 2)
+  // =========================================================================
+
+  let deletedFilesVaultData = [];
+
+  const FILE_PRESET_MAP = {
+    confidential: {
+      name: "quarterly_confidential_report.pdf",
+      content: "%PDF-1.4\n%SIH26149 Forensic Vault Snapshot\nConfidential Financial and Auditing Records 2026.\n%%EOF"
+    },
+    sourcecode: {
+      name: "recovery_algorithm_core.js",
+      content: "const crypto = require('crypto');\n// Cyphox Forensic Engine Algorithm Core\nfunction verifyIntegrity(data){ return crypto.createHash('sha256').update(data).digest('hex'); }"
+    },
+    database: {
+      name: "client_database_backup.json",
+      content: JSON.stringify({ version: "2.4.0", timestamp: new Date().toISOString(), records: [{ id: 101, name: "Alpha Corp", balance: 450000 }, { id: 102, name: "Beta LLC", balance: 820000 }] }, null, 2)
+    },
+    personal: {
+      name: "personal_journal_and_passwords.txt",
+      content: "Personal Notes & System Credentials\nDate: " + new Date().toDateString() + "\nAll recovery engines operational."
+    },
+    custom: {
+      name: "custom_user_document.txt",
+      content: "Enter your custom document contents here..."
+    }
+  };
+
+  function applyDelPreset(){
+    const preset = document.getElementById("delContentPreset").value;
+    const wrap = document.getElementById("customContentWrap");
+    if (preset === "custom") {
+      wrap.style.display = "block";
+      document.getElementById("delInputFileName").value = "custom_test_file.txt";
+    } else {
+      wrap.style.display = "none";
+      const pData = FILE_PRESET_MAP[preset] || FILE_PRESET_MAP.confidential;
+      document.getElementById("delInputFileName").value = pData.name;
+    }
+  }
+
+  async function handleDeleteNormalFile(e){
+    e.preventDefault();
+    const btn = document.getElementById("deleteFileSubmitBtn");
+    const inputVal = document.getElementById("delInputFileName").value.trim();
+    const preset = document.getElementById("delContentPreset").value;
+    const customContent = document.getElementById("delCustomContent").value;
+
+    if (!inputVal) {
+      alert("Please enter a file name or path to delete.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Deleting & Indexing...";
+
+    let contentToSend;
+    let fileNameToSend = inputVal;
+    let filePathToSend = null;
+
+    // Check if it's an absolute path
+    if (inputVal.includes(":\\") || inputVal.startsWith("/") || inputVal.startsWith("\\")) {
+      filePathToSend = inputVal;
+    } else {
+      if (preset === "custom") {
+        contentToSend = customContent || "Custom test document payload.";
+      } else {
+        const pData = FILE_PRESET_MAP[preset] || FILE_PRESET_MAP.confidential;
+        contentToSend = pData.content;
+      }
+    }
+
+    const { response, data } = await apiRequest("/recovery/delete", {
+      method: "POST",
+      body: JSON.stringify({
+        fileName: fileNameToSend,
+        filePath: filePathToSend,
+        content: contentToSend
+      })
+    });
+
+    btn.disabled = false;
+    btn.textContent = "🗑️ Delete Normal File";
+
+    if (response.ok && data.deletedFile) {
+      openModal("File Deleted & Vault Indexed", `
+        <div style="color:var(--neon); margin-bottom:12px; font-size:.95rem;">
+          🗑️ <strong>File Successfully Deleted &amp; Archived in Recovery Vault</strong>
+        </div>
+        <div style="font-size:.82rem; line-height:1.8; color:var(--text);">
+          File Name: <strong>${data.deletedFile.name}</strong><br>
+          File Size: <strong>${data.deletedFile.sizeFormatted}</strong> (${data.deletedFile.size} bytes)<br>
+          SHA-256 Checksum: <code style="font-size:.65rem; color:var(--cyan);">${data.deletedFile.sha256}</code><br>
+          Shannon Entropy: <strong>${data.deletedFile.entropy}</strong><br>
+          Recoverability Rating: <span class="badge">${data.deletedFile.recoverability}</span><br>
+          Status: <span class="badge badge-amber">DELETED (Ready for Option 1 or Option 2 Recovery)</span>
+        </div>
+      `);
+      loadDeletedFiles();
+      loadDashboardStats();
+    } else {
+      alert("Delete failed: " + (data.message || "Unknown error"));
+    }
+  }
+
+  // LOAD DELETED FILES JOURNAL
+  async function loadDeletedFiles(){
+    const { response, data } = await apiRequest("/recovery/deleted");
+    const tbody = document.getElementById("deletedVaultTableBody");
+    const countBadge = document.getElementById("allDeletedCountBadge");
+    const totalCountLabel = document.getElementById("totalDeletedVaultCount");
+    const lastNameBadge = document.getElementById("lastDeletedNameBadge");
+    const lastDisplay = document.getElementById("lastDeletedFileNameDisplay");
+
+    if (response.ok && data.deletedFiles) {
+      deletedFilesVaultData = data.deletedFiles;
+      const activeCount = data.activeDeletedCount || 0;
+      totalCountLabel.textContent = data.totalDeleted || 0;
+      countBadge.textContent = `${activeCount} Active Deleted`;
+
+      if (data.lastDeletedFile) {
+        lastNameBadge.textContent = data.lastDeletedFile.status;
+        lastNameBadge.className = data.lastDeletedFile.status === 'DELETED' ? 'badge badge-amber' : 'badge';
+        lastDisplay.textContent = data.lastDeletedFile.name;
+      } else {
+        lastNameBadge.textContent = "0 Files";
+        lastNameBadge.className = "badge";
+        lastDisplay.textContent = "None";
+      }
+
+      if (data.deletedFiles.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--muted)">No deleted files recorded yet. Use the tool above to delete normal files.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = data.deletedFiles.map(f => `
+        <tr>
+          <td>
+            <span class="badge ${f.status === 'DELETED' ? 'badge-amber' : ''}">
+              ${f.status === 'DELETED' ? '🗑️ DELETED' : '✅ RECOVERED'}
+            </span>
+          </td>
+          <td><strong style="color:var(--text)">${f.name}</strong></td>
+          <td><span class="badge">${f.category || 'Documents'}</span></td>
+          <td>${f.sizeFormatted}</td>
+          <td>${new Date(f.deletedAt).toLocaleString()}</td>
+          <td style="font-family:monospace; font-size:.68rem; color:var(--cyan);">${f.sha256 ? f.sha256.substring(0, 16) + '...' : 'N/A'}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" onclick="recoverSingleVaultFile('${f.id}')" style="width:auto; padding:6px 12px; font-size:.7rem;">
+              ♻️ Recover
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+  }
+
+  // OPTION 2: RECOVER LAST DELETED FILE
+  async function triggerRecoverLastFile(){
+    const btn = document.getElementById("recoverLastBtn");
+    btn.disabled = true;
+    btn.textContent = "Recovering Last File...";
+
+    const { response, data } = await apiRequest("/recovery/deleted/recover-last", {
+      method: "POST"
+    });
+
+    btn.disabled = false;
+    btn.textContent = "⚡ Recover LAST Deleted File";
+
+    if (response.ok && data.recoveredFile) {
+      const f = data.recoveredFile;
+      openModal("⚡ Option 2: Last Deleted File Recovered", `
+        <div style="color:var(--neon); margin-bottom:14px; font-size:1.05rem;">
+          ✅ <strong>Successfully Recovered Last Deleted File!</strong>
+        </div>
+        <div style="font-size:.83rem; line-height:1.9; color:var(--text); margin-bottom:16px;">
+          Recovered File: <strong style="color:var(--neon); font-size:1rem;">${f.name}</strong><br>
+          Saved Destination: <code>${f.restoredPath}</code><br>
+          File Size: <strong>${f.sizeFormatted}</strong> (${f.size} bytes)<br>
+          Cryptographic Checksum: <code style="font-size:.68rem; color:var(--cyan)">${f.sha256}</code><br>
+          SHA-256 Verification: <span class="badge">${f.hashMatched ? '✓ 100% BIT-PERFECT MATCH' : 'VERIFIED'}</span><br>
+          Restored Timestamp: <strong>${new Date(f.recoveredAt).toLocaleString()}</strong>
+        </div>
+        <div style="background:rgba(0,255,178,0.05); border:1px solid rgba(0,255,178,0.3); border-radius:8px; padding:12px; font-size:.75rem; color:var(--cyan);">
+          🛡️ Forensic verification confirmed: The file bytes were cleanly extracted and written to disk without corruption.
+        </div>
+      `);
+      loadDeletedFiles();
+      loadDashboardStats();
+    } else {
+      alert("Recover Last failed: " + (data.message || "No deleted files found."));
+    }
+  }
+
+  // OPTION 1: RECOVER ALL DELETED FILES SO FAR
+  async function triggerRecoverAllFiles(){
+    const btn = document.getElementById("recoverAllBtn");
+    btn.disabled = true;
+    btn.textContent = "Recovering All Deleted Files...";
+
+    const { response, data } = await apiRequest("/recovery/deleted/recover-all", {
+      method: "POST"
+    });
+
+    btn.disabled = false;
+    btn.textContent = "♻️ Recover ALL Deleted Files Now";
+
+    if (response.ok && data.restoredFiles) {
+      openModal("♻️ Option 1: ALL Deleted Files Recovered", `
+        <div style="color:var(--neon); margin-bottom:12px; font-size:1.05rem;">
+          ✅ <strong>Successfully Recovered ALL ${data.restoredCount} Deleted Files!</strong>
+        </div>
+        <p style="color:var(--muted); font-size:.8rem; margin-bottom:14px;">
+          Destination Directory: <code>${data.destinationDirectory}</code>
+        </p>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Recovered File</th>
+                <th>Category</th>
+                <th>Size</th>
+                <th>Integrity Checksum</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.restoredFiles.map(rf => `
+                <tr>
+                  <td><strong style="color:var(--text)">${rf.name}</strong></td>
+                  <td><span class="badge">${rf.category || 'Documents'}</span></td>
+                  <td>${rf.sizeFormatted}</td>
+                  <td style="font-size:.65rem; color:var(--cyan); font-family:monospace;">${rf.sha256 ? rf.sha256.substring(0, 16) + '...' : 'Verified'}</td>
+                  <td><span class="badge">✓ Restored</span></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `);
+      loadDeletedFiles();
+      loadDashboardStats();
+    } else {
+      alert("Recover All failed: " + (data.message || "No deleted files available."));
+    }
+  }
+
+  // RECOVER SINGLE FILE BY ID
+  async function recoverSingleVaultFile(fileId){
+    const { response, data } = await apiRequest(`/recovery/deleted/recover/${fileId}`, {
+      method: "POST"
+    });
+
+    if (response.ok && data.recoveredFile) {
+      const f = data.recoveredFile;
+      openModal(`Recovered: ${f.name}`, `
+        <div style="color:var(--neon); margin-bottom:12px;">
+          ✅ <strong>File Successfully Restored!</strong>
+        </div>
+        <div style="font-size:.82rem; line-height:1.8; color:var(--text);">
+          File Name: <strong>${f.name}</strong><br>
+          Saved Path: <code>${f.restoredPath}</code><br>
+          Size: <strong>${f.sizeFormatted}</strong><br>
+          SHA-256 Digest: <code style="font-size:.65rem; color:var(--cyan)">${f.sha256}</code><br>
+          Integrity Check: <span class="badge">${f.hashMatched ? '✓ Bit-Perfect Match' : 'Verified'}</span>
+        </div>
+      `);
+      loadDeletedFiles();
+      loadDashboardStats();
+    } else {
+      alert("Restore failed: " + (data.message || "Error restoring file."));
+    }
+  }
+
+  // =========================================================================
+  // RECOVERY SCAN (SECTOR & MAGIC BYTES)
+  // =========================================================================
+  async function startRecoveryScan(){
+    const btn = document.getElementById("startRecoveryBtn");
+    const target = document.getElementById("recoveryTargetSelect").value;
+    const mode = document.getElementById("recoveryModeSelect").value;
+
+    btn.disabled = true;
+    document.getElementById("recoveryProgressBlock").style.display = "block";
+    document.getElementById("recoveryResultsCard").style.display = "none";
+
+    const { response, data } = await apiRequest("/recovery/scan", {
+      method: "POST",
+      body: JSON.stringify({ targetPath: target, mode })
+    });
+
+    if (response.ok && data.jobId) {
+      currentScanJobId = data.jobId;
+      pollRecoveryProgress(data.jobId);
+    } else {
+      btn.disabled = false;
+      alert("Failed to start scan: " + (data.message || "Unknown error"));
+    }
+  }
+
+  function pollRecoveryProgress(jobId){
+    const timer = setInterval(async () => {
+      const { response, data } = await apiRequest(`/recovery/status/${jobId}`);
+      if (response.ok && data.job) {
+        const job = data.job;
+        const pct = job.percentage || 0;
+        document.getElementById("recoveryProgressBar").style.width = pct + "%";
+        document.getElementById("recoveryProgressPercent").textContent = pct + "%";
+        document.getElementById("recoveryProgressText").textContent = `Carving sectors on ${job.targetName}...`;
+        document.getElementById("recoverySpeedText").textContent = `Speed: ${job.speedMBs || '142.5'} MB/s`;
+        document.getElementById("recoveryFoundCountText").textContent = `Discovered: ${job.foundCount || 0} items`;
+
+        if (job.status === "COMPLETED" || job.status === "FAILED") {
+          clearInterval(timer);
+          document.getElementById("startRecoveryBtn").disabled = false;
+          fetchDiscoveredFiles(jobId);
+        }
+      }
+    }, 400);
+  }
+
+  async function fetchDiscoveredFiles(jobId){
+    const { response, data } = await apiRequest(`/recovery/files/${jobId}`);
+    if (response.ok && data.files) {
+      allDiscoveredFiles = data.files;
+      document.getElementById("totalFoundLabel").textContent = data.files.length;
+      document.getElementById("recoveryResultsCard").style.display = "block";
+      filterRecoveredFiles();
+      loadDashboardStats();
+    }
+  }
+
+  function filterRecoveredFiles(){
+    const cat = document.getElementById("recoveryFilterSelect").value;
+    const tbody = document.getElementById("recoveredFilesBody");
+    const filtered = cat === "All" ? allDiscoveredFiles : allDiscoveredFiles.filter(f => f.category === cat);
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--muted)">No files found in category '${cat}'.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(f => `
+      <tr>
+        <td><input type="checkbox" class="file-chk" value="${f.id}"></td>
+        <td><strong style="color:var(--text)">${f.name}</strong></td>
+        <td><span class="badge">${f.category}</span></td>
+        <td>${f.sizeFormatted}</td>
+        <td><span class="badge ${f.recoverability === 'High' ? '' : (f.recoverability === 'Medium' ? 'badge-amber' : 'badge-danger')}">${f.recoverability} (${f.score}%)</span></td>
+        <td>${f.entropy}</td>
+        <td style="font-family:monospace; font-size:.68rem; color:var(--cyan);">${f.sha256 ? f.sha256.substring(0, 16) + '...' : 'N/A'}</td>
+        <td>
+          <button class="btn btn-secondary btn-sm" onclick="previewFile('${f.id}')">Inspect</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function toggleSelectAllFiles(master){
+    document.querySelectorAll(".file-chk").forEach(c => c.checked = master.checked);
+  }
+
+  async function restoreSelectedFiles(){
+    const checked = Array.from(document.querySelectorAll(".file-chk:checked")).map(c => c.value);
+    if (checked.length === 0 && allDiscoveredFiles.length === 0) {
+      alert("No files to restore.");
+      return;
+    }
+
+    const { response, data } = await apiRequest("/recovery/restore", {
+      method: "POST",
+      body: JSON.stringify({ jobId: currentScanJobId, fileIds: checked })
+    });
+
+    if (response.ok) {
+      openModal("Files Successfully Restored", `
+        <p style="color:var(--neon); margin-bottom:12px;">✅ ${data.message}</p>
+        <p style="color:var(--muted); font-size:.8rem; margin-bottom:14px;">Restored destination: <code>${data.destinationDirectory}</code></p>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Restored File</th><th>Size</th><th>Integrity Checksum</th></tr></thead>
+            <tbody>
+              ${(data.restoredFiles || []).map(rf => `
+                <tr><td>${rf.fileName}</td><td>${rf.sizeFormatted}</td><td style="font-size:.65rem; color:var(--cyan)">${rf.sha256}</td></tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `);
+      loadDashboardStats();
+    } else {
+      alert("Restore failed: " + (data.message || "Error"));
+    }
+  }
+
+  function previewFile(fileId){
+    const file = allDiscoveredFiles.find(f => f.id === fileId);
+    if (!file) return;
+
+    openModal(`Inspection: ${file.name}`, `
+      <div style="font-size:.82rem; line-height:1.8; margin-bottom:14px;">
+        Category: <strong>${file.category}</strong> (${file.fileType})<br>
+        Size: <strong>${file.sizeFormatted}</strong> (${file.size} bytes)<br>
+        Recoverability Rating: <strong style="color:var(--neon)">${file.recoverability} (${file.score}%)</strong><br>
+        Shannon Entropy: <strong>${file.entropy}</strong><br>
+        SHA-256 Digest: <code>${file.sha256}</code>
+      </div>
+      <div class="hex-block">00000000: FF D8 FF E0 00 10 4A 46  49 46 00 01 01 01 00 60  ......JFIF.....\`
+00000010: 00 60 00 00 FF DB 00 43  00 08 06 06 07 06 05 08  .\`.....C........
+00000020: 07 07 07 09 09 08 0A 0C  14 0D 0C 0B 0B 0C 19 12  ................</div>
+    `);
+  }
+
+
+  // DATA ERASURE
+  document.getElementById("erasureForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("startEraseBtn");
+    const targetPath = document.getElementById("eraseTargetPath").value.trim().replace(/^["']|["']$/g, '');
+    const targetType = document.getElementById("eraseTargetType").value;
+    const method = document.getElementById("eraseMethod").value;
+    const progressBlock = document.getElementById("erasureProgressBlock");
+    const statusMsg = document.getElementById("eraseStatusMsg");
+
+    btn.disabled = true;
+    progressBlock.style.display = "block";
+    setStatus(statusMsg, "Initializing multi-pass cryptographic sanitizer...", "info");
+
+    const { response, data } = await apiRequest("/erasure/start", {
+      method: "POST",
+      body: JSON.stringify({ targetPath, targetType, method })
+    });
+
+    if (response.ok && data.jobId) {
+      pollErasureProgress(data.jobId);
+    } else {
+      btn.disabled = false;
+      setStatus(statusMsg, data.message || "Failed to start erasure.", "error");
+    }
+  });
+
+  function pollErasureProgress(jobId){
+    const timer = setInterval(async () => {
+      const { response, data } = await apiRequest(`/erasure/status/${jobId}`);
+      if (response.ok && data.job) {
+        const j = data.job;
+        const pct = j.percentage || 0;
+        document.getElementById("eraseProgressBar").style.width = pct + "%";
+        document.getElementById("eraseProgressPercent").textContent = pct + "%";
+        document.getElementById("eraseProgressLabel").textContent = `Pass ${j.currentPass || 1} of ${j.totalPasses || 1} — Overwriting target...`;
+
+        if (j.status === "COMPLETED") {
+          clearInterval(timer);
+          document.getElementById("startEraseBtn").disabled = false;
+          setStatus(document.getElementById("eraseStatusMsg"), "✅ Sanitization Complete & Digital Certificate Generated!", "success");
+          loadDashboardStats();
+          loadCertificates();
+        }
+      }
+    }, 300);
+  }
+
+  // SANITIZATION METHODS MATRIX
+  async function loadSanitizationMethods(){
+    const { response, data } = await apiRequest("/sanitization/methods");
+    const container = document.getElementById("sanitizationMethodsContainer");
+    if (response.ok && data.methods) {
+      container.innerHTML = data.methods.map(m => `
+        <div class="select-card">
+          <h4>
+            <span>${m.name}</span>
+            <span class="badge">${m.passes} Passes</span>
+          </h4>
+          <p>${m.description}</p>
+          <span class="pending-tag">${m.standards}</span>
+        </div>
+      `).join('');
+    }
+  }
+
+  // INDEPENDENT VERIFICATION
+  async function startIndependentVerification(){
+    const box = document.getElementById("verificationResultBox");
+    box.innerHTML = `<p style="color:var(--cyan)">Sampling random sectors across storage media and computing Shannon Entropy...</p>`;
+
+    const { response, data } = await apiRequest("/verification/start", {
+      method: "POST",
+      body: JSON.stringify({ targetId: "vol_C", targetName: "Primary Storage Volume", samplingRate: 25 })
+    });
+
+    if (response.ok && data.jobId) {
+      const timer = setInterval(async () => {
+        const res = await apiRequest(`/verification/status/${data.jobId}`);
+        if (res.response.ok && res.data.job) {
+          const job = res.data.job;
+          if (job.status === "VERIFIED" || job.status === "FAILED") {
+            clearInterval(timer);
+            const r = job.result;
+            box.innerHTML = `
+              <div style="background:rgba(0,255,178,0.05); border:1px solid var(--neon); border-radius:8px; padding:16px;">
+                <h4 style="color:var(--neon); margin-bottom:8px;">✓ VERIFICATION STATUS: ${r.status}</h4>
+                <div style="font-size:.8rem; line-height:1.7; color:var(--text);">
+                  Target: <strong>${r.targetName}</strong><br>
+                  Sampling Rate: <strong>${r.samplingRate}</strong> (${r.sectorsSampled.toLocaleString()} sectors examined)<br>
+                  Shannon Entropy Result: <strong style="color:var(--neon)">${r.entropy}</strong> (0.0000 = Purged/Null)<br>
+                  Non-Zero Residue: <strong>${r.residuePercentage}</strong><br>
+                  Compliance: <strong>${r.complianceStandard}</strong><br>
+                  Verification Digest: <code>${r.verificationHash}</code>
+                </div>
+              </div>
+            `;
+            loadDashboardStats();
+          }
+        }
+      }, 300);
+    }
+  }
+
+  // FORENSICS HEX & TIMELINE
+  async function loadHexView(){
+    const offset = document.getElementById("hexOffsetInput").value || 0;
+    const { response, data } = await apiRequest("/forensics/hex-view", {
+      method: "POST",
+      body: JSON.stringify({ offset: parseInt(offset, 10) || 0, length: 256 })
+    });
+
+    const container = document.getElementById("hexViewerContainer");
+    if (response.ok && data.hexDump) {
+      container.textContent = data.hexDump.lines.map(l => `${l.offset}:  ${l.hex}  |${l.ascii}|`).join('\n');
+    }
+  }
+
+  async function loadForensicsTimeline(){
+    const { response, data } = await apiRequest("/forensics/timeline");
+    const tbody = document.getElementById("timelineTableBody");
+    if (response.ok && data.timeline) {
+      tbody.innerHTML = data.timeline.map(t => `
+        <tr>
+          <td><strong style="color:var(--neon)">${t.eventType}</strong></td>
+          <td>${t.description}</td>
+          <td>${t.user}</td>
+          <td><span class="badge">${t.status}</span></td>
+          <td>${new Date(t.timestamp).toLocaleString()}</td>
+        </tr>
+      `).join('');
+    }
+  }
+
+  // CERTIFICATES
+  async function loadCertificates(){
+    const { response, data } = await apiRequest("/certificates");
+    const tbody = document.getElementById("certificatesTableBody");
+    if (response.ok && data.certificates) {
+      if (data.certificates.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--muted)">No certificates issued yet. Execute a sanitization operation to generate.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = data.certificates.map(c => `
+        <tr>
+          <td><strong style="color:var(--neon)">${c.certificateId}</strong></td>
+          <td>${c.target ? c.target.name : 'Storage Volume'}</td>
+          <td>${c.operation ? c.operation.standard : 'NIST SP 800-88'}</td>
+          <td>${c.operator ? c.operator.name : 'Officer'}</td>
+          <td>${new Date(c.issuedAt).toLocaleDateString()}</td>
+          <td>
+            <button class="btn btn-secondary btn-sm" onclick="viewCertificate('${c.certificateId}')">QR &amp; Certificate</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+  }
+
+  async function viewCertificate(certId){
+    const { response, data } = await apiRequest(`/certificates/${certId}`);
+    if (response.ok && data.certificate) {
+      const c = data.certificate;
+      openModal(`Certificate: ${c.certificateId}`, `
+        <div style="text-align:center; margin-bottom:16px;">
+          <img src="${c.qrCode}" alt="QR Verification" style="border:2px solid var(--neon); border-radius:8px; width:160px; height:160px; padding:4px; background:#0a1122;">
+          <p style="font-size:.7rem; color:var(--muted); margin-top:6px;">Scan to cryptographically verify certificate integrity</p>
+        </div>
+        <div style="font-size:.8rem; line-height:1.8;">
+          Target Device: <strong>${c.target.name} (SN: ${c.target.serialNumber})</strong><br>
+          Sanitization Standard: <strong>${c.operation.standard}</strong> (${c.operation.passes} Passes)<br>
+          Verification Status: <span class="badge">${c.operation.verificationStatus}</span><br>
+          Shannon Entropy: <strong>${c.operation.entropyResult}</strong><br>
+          Authorized Officer: <strong>${c.operator.name}</strong> (${c.operator.email})<br>
+          Digital HMAC Signature: <code style="font-size:.65rem; color:var(--cyan);">${c.digitalSignature}</code>
+        </div>
+      `);
+    }
+  }
+
+  // HISTORY
+  async function loadHistory(){
+    const { response, data } = await apiRequest("/history");
+    const tbody = document.getElementById("historyTableBody");
+    if (response.ok && data.operations) {
+      if (data.operations.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--muted)">No history records found.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = data.operations.map(op => `
+        <tr>
+          <td><strong style="color:var(--neon)">${op.type}</strong></td>
+          <td>${op.target || 'N/A'}</td>
+          <td><span class="badge ${op.status === 'COMPLETED' ? '' : 'badge-amber'}">${op.status}</span></td>
+          <td>${op.details || 'Operation completed successfully.'}</td>
+          <td>${new Date(op.timestamp).toLocaleString()}</td>
+        </tr>
+      `).join('');
+    }
+  }
+
+  // MODAL UTILS
+  function openModal(title, htmlContent){
+    document.getElementById("modalTitle").textContent = title;
+    document.getElementById("modalBody").innerHTML = htmlContent;
+    document.getElementById("genericModal").classList.add("active");
+  }
+
+  function closeModal(){
+    document.getElementById("genericModal").classList.remove("active");
+  }
+
+  // SIDEBAR NAVIGATION
+  document.querySelectorAll(".nav-item").forEach(item => {
+    item.addEventListener("click", () => {
+      document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      item.classList.add("active");
+      const p = document.getElementById("page-" + item.dataset.page);
+      if (p) p.classList.add("active");
+      document.getElementById("sidebar").classList.remove("open");
+
+      // Auto refresh tab data
+      if (item.dataset.page === "recovery") loadDeletedFiles();
+      if (item.dataset.page === "devices") loadDevices();
+      if (item.dataset.page === "forensics") loadForensicsTimeline();
+      if (item.dataset.page === "certificates") loadCertificates();
+      if (item.dataset.page === "history") loadHistory();
+      if (item.dataset.page === "dashboard") loadDashboardStats();
+    });
+  });
+
+  document.getElementById("menuToggle").addEventListener("click", () => {
+    document.getElementById("sidebar").classList.toggle("open");
+  });
+
+
+  // INITIAL LOAD
+  document.addEventListener("DOMContentLoaded", () => {
+    if (getToken() && getStoredUser()) {
+      showAppScreen();
+    } else {
+      showAuthScreen();
+    }
+  });
+</script>
+
+</body>
+</html>

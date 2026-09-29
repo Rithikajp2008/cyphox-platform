@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0",
+  "recordType": "TAMPER_VERIFICATION_RESULT",
+  "identifiers": {
+    "userId": "LOCAL-USER",
+    "deviceId": "DRIVE-D",
+    "sessionId": "TAMPER-SESSION-001",
+    "jobId": "TAMPER-VERIFY-JOB-002",
+    "baselineId": "BASELINE-USB-001",
+    "verificationId": "VERIFY-USB-002"
+  },
+  "target": {
+    "path": "D:\\Cyphox_Tamper_Test",
+    "type": "FOLDER",
+    "readOnly": true
+  },
+  "verifiedAtUtc": "2026-09-27T11:32:00.540145+00:00",
+  "verificationState": "VERIFIED",
+  "tamperStatus": "INTACT",
+  "baselineIntegrity": {
+    "valid": true,
+    "expected": "b6e353e3247f5d473ecde24144aa89bc53152b04c341d6bac45a67ab5d6f478b",
+    "actual": "b6e353e3247f5d473ecde24144aa89bc53152b04c341d6bac45a67ab5d6f478b"
+  },
+  "options": {
+    "hashAlgorithm": "SHA-256",
+    "checkMetadata": true,
+    "maxFiles": 1000
+  },
+  "summary": {
+    "baselineFiles": 3,
+    "currentFiles": 3,
+    "added": 0,
+    "deleted": 0,
+    "modified": 0,
+    "renamed": 0,
+    "metadataChanged": 0,
+    "unchanged": 3,
+    "scanErrorCount": 0,
+    "traversalComplete": true,
+    "complete": true,
+    "changeCount": 0
+  },
+  "changes": {
+    "added": [],
+    "deleted": [],
+    "modified": [],
+    "renamed": [],
+    "metadataChanged": []
+  },
+  "scanErrors": [],
+  "verificationIntegritySha256": "47dc431bef1a7fd62cd98129d9f6ae128a4b76486cdb49d41b88100896b672f2"
+}

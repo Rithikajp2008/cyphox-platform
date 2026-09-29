@@ -1,0 +1,30 @@
+CYPHOX TAMPER-ONLY SERVICE
+==========================
+
+IMPORTANT:
+- This package is TAMPer Verification + Certificate/QR only.
+- Do NOT run `app.main:app`.
+- Do NOT use port 8003.
+
+1) Open THIS extracted folder in VS Code.
+2) Create/activate venv:
+   py -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+3) Install:
+   pip install -r requirements-dev.txt
+4) Test:
+   python -m pytest -q
+   Expected: 9 passed
+5) Run:
+   python -m uvicorn tamper_app.main:app --host 127.0.0.1 --port 8004 --reload
+6) Open:
+   http://127.0.0.1:8004/docs
+
+Swagger title MUST be:
+Cyphox Tamper Verification & Certificate Service
+
+Visible endpoint groups MUST be:
+- /api/v1/tamper/...
+- /api/v1/certificates/...
+
+If you see unrelated module endpoints, you are running the WRONG folder/service.

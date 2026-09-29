@@ -1,0 +1,14 @@
+node_modules/
+data/recovered/
+data/recovered_test/
+data/recovery_engine_test_output/
+data/deleted_vault/
+data/backups/
+data/*.tmp
+data/*.img
+data/*.png
+extracted/
+scratch/
+*.log
+*.tmp
+.env

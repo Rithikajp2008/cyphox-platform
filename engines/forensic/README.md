@@ -1,0 +1,69 @@
+# Cyphox Digital Forensic Service — Website-Ready v2.0
+
+A standalone, read-only forensic engine and REST API designed to plug into the supplied Cyphox website without changing its existing Node/Express authentication/database backend.
+
+## What it provides
+- File / folder / mounted-drive scanning, recursively, without following links/junctions.
+- SHA-256 evidence hashing; optional MD5 and SHA-1.
+- Evidence IDs plus `userId`, `deviceId`, `sessionId`, `jobId` correlation.
+- Windows hidden/system/read-only/archive/reparse attributes where available.
+- File timestamps, size, MIME/category, permissions and content-signature detection.
+- Findings: zero-byte, hidden/system, duplicate SHA-256 content, executables/scripts, keyword hits, content/extension mismatch, scan errors.
+- Website-aligned `findings`, `artifacts` and `residualDataAnalysis` result sections.
+- Reports in JSON, CSV, TXT and HTML.
+- SHA-256 canonical report-integrity verification.
+- Windows drive / USB discovery.
+- Asynchronous job API plus backward-compatible synchronous `/scan` endpoint.
+- CORS enabled for later browser integration.
+
+## Scope boundary
+This module never erases a target and does not recover deleted/unallocated data. Deleted-file carving remains the Recovery Engine responsibility. Its residual-data section covers allocated-file indicators only.
+
+## Windows / VS Code setup
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements-dev.txt
+python -m pytest -q
+```
+
+Start API:
+```powershell
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8003 --reload
+```
+Swagger: `http://127.0.0.1:8003/docs`
+
+## Recommended verification order (before website connection)
+1. `python -m pytest -q`
+2. `python scripts\usb_forensics_scan.py --list`
+3. Scan a disposable test folder: `python scripts\usb_forensics_scan.py C:\Path\To\TestFolder --max-files 1000`
+4. Inspect `reports/` JSON/CSV/TXT/HTML files.
+5. Verify JSON integrity: `python scripts\verify_report.py reports\<report>.json`
+6. Start Swagger and test `/health`, `/devices`, `/jobs`, `/jobs/{id}`, `/jobs/{id}/findings`, `/jobs/{id}/report`, `/verify`.
+7. Only after these pass, wire the Forensics page to `http://127.0.0.1:8003/api/v1/forensics`.
+
+## USB test
+List drives:
+```powershell
+python scripts\usb_forensics_scan.py --list
+```
+Then, for example:
+```powershell
+python scripts\usb_forensics_scan.py E:\ --max-files 1000
+```
+Use a test USB first. The forensic scanner opens file content read-only and writes reports into the project `reports/` directory, not the target drive.
+
+See `FRONTEND_INTEGRATION.md` for the exact website contract.
+
+## Forensic-soundness note
+The application itself opens evidence files read-only and never intentionally writes to the target. However, ordinary operating-system access can still update filesystem metadata such as access time on some configurations. For evidentiary acquisition requiring strict forensic soundness, use hardware/software write blocking or a read-only forensic image/mount before scanning.
+
+
+## 2026-09-26 Windows/USB robustness patch
+- Evidence records are retained even when SHA-256/MD5/SHA-1 inspection of a file fails.
+- Scan errors now include an inspection stage such as SHA256 or METADATA.
+- summary.complete is false if any item was not fully inspected.
+- summary.traversalComplete indicates traversal itself reached the end.
+- summary.completedWithWarnings is true when traversal finished but inspection errors occurred.
+- Device metadata falls back to the requested deviceId if Windows path normalization does not resolve the drive cleanly.

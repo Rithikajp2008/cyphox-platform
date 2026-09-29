@@ -1,0 +1,17 @@
+CYPHOX DIGITAL FORENSIC REPORT
+================================
+Job ID: USB-API-002
+Target: D:\
+Read-only: True
+Files: 39
+Bytes: 4008886772
+Findings: 5
+Errors: 0
+Integrity SHA-256: 48aa05b810703b75622fee9dd2dba7834cc1e2abef86ea23d483f525044bbc1b
+
+FINDINGS
+- [INFO] ZERO_BYTE_FILES (2): Zero-byte allocated files were found.
+- [INFO] HIDDEN_OR_SYSTEM_FILES (1): Hidden or system-attributed files were found.
+- [WARNING] CONTENT_EXTENSION_MISMATCH (1): File content signature does not match its extension.
+- [INFO] EXECUTABLE_OR_SCRIPT_FILES (1): Executable or script files are present; this is not a malware verdict.
+- [INFO] DUPLICATE_CONTENT (2): Files with identical SHA-256 hashes were found.

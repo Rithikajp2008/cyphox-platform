@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0",
+  "recordType": "TAMPER_BASELINE",
+  "identifiers": {
+    "userId": "LOCAL-USER",
+    "deviceId": "DRIVE-D",
+    "sessionId": "TAMPER-SESSION-001",
+    "jobId": "TAMPER-BASELINE-JOB-001",
+    "baselineId": "BASELINE-USB-001"
+  },
+  "target": {
+    "path": "D:\\Cyphox_Tamper_Test",
+    "type": "FOLDER",
+    "readOnly": true
+  },
+  "createdAtUtc": "2026-09-27T10:24:44.749664+00:00",
+  "options": {
+    "hashAlgorithm": "SHA-256",
+    "checkMetadata": true,
+    "maxFiles": 1000,
+    "linksFollowed": false
+  },
+  "summary": {
+    "fileCount": 3,
+    "totalBytes": 59,
+    "scanErrorCount": 0,
+    "traversalComplete": true,
+    "complete": true
+  },
+  "entries": [
+    {
+      "name": "file1.txt",
+      "relativePath": "file1.txt",
+      "sizeBytes": 19,
+      "modifiedUtc": "2026-09-27T10:24:10+00:00",
+      "modifiedNs": 1790504650000000000,
+      "extension": ".txt",
+      "sha256": "3a06370b600e1d7bf564405a5f12f10775b1e36c1b96d036503cd13f5cb759c5"
+    },
+    {
+      "name": "file2.txt",
+      "relativePath": "file2.txt",
+      "sizeBytes": 19,
+      "modifiedUtc": "2026-09-27T10:24:10+00:00",
+      "modifiedNs": 1790504650000000000,
+      "extension": ".txt",
+      "sha256": "23cdcd6fdb92d87d4ae56aac3447848dafeebebbf9da86efa4fd19f1d654255c"
+    },
+    {
+      "name": "file3.txt",
+      "relativePath": "file3.txt",
+      "sizeBytes": 21,
+      "modifiedUtc": "2026-09-27T10:24:10+00:00",
+      "modifiedNs": 1790504650000000000,
+      "extension": ".txt",
+      "sha256": "0ed2d0a6dfdc61f4cdefaee68ade930cb3b3b47f5bfea856db55077238620e54"
+    }
+  ],
+  "scanErrors": [],
+  "notes": "Initial tamper verification baseline",
+  "baselineIntegritySha256": "b6e353e3247f5d473ecde24144aa89bc53152b04c341d6bac45a67ab5d6f478b"
+}

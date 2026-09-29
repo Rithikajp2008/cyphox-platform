@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "recordType": "CYPHOX_CERTIFICATE",
+  "certificateType": "TAMPER_VERIFICATION",
+  "certificateId": "CERT-USB-003",
+  "title": "Cyphox Tamper Verification Certificate",
+  "issuedAtUtc": "2026-09-27T12:59:38.822833+00:00",
+  "issuer": "Cyphox Local Verification Service",
+  "identifiers": {
+    "userId": "LOCAL-USER",
+    "sessionId": "TAMPER-SESSION-001",
+    "deviceId": "DRIVE-D",
+    "baselineId": "BASELINE-USB-001",
+    "verificationId": "VERIFY-USB-003"
+  },
+  "target": {
+    "path": "D:\\Cyphox_Tamper_Test",
+    "type": "FOLDER",
+    "readOnly": true
+  },
+  "verification": {
+    "verificationState": "VERIFIED",
+    "tamperStatus": "TAMPERED",
+    "summary": {
+      "baselineFiles": 3,
+      "currentFiles": 4,
+      "added": 1,
+      "deleted": 0,
+      "modified": 1,
+      "renamed": 1,
+      "metadataChanged": 0,
+      "unchanged": 1,
+      "scanErrorCount": 0,
+      "traversalComplete": true,
+      "complete": true,
+      "changeCount": 3
+    },
+    "verificationIntegritySha256": "8fc58c974486bb941bf6f1e05bf23d5ecafbc69deb871cb6f5ee958a69b69470"
+  },
+  "verifyUrl": "http://127.0.0.1:8004/api/v1/certificates/CERT-USB-003/verify?digest=8fc58c974486bb941bf6f1e05bf23d5ecafbc69deb871cb6f5ee958a69b69470",
+  "certificateDigestSha256": "19ef39fadf7cfd0b6bf1571ce7e4dbbf20c37edc6c43c7263167178b09fb5695",
+  "signature": {
+    "algorithm": "HMAC-SHA256",
+    "value": "ce5cd415d8a1ae03ad6df07e1ac457c148ddbb8d825d9de4d7d7690ce60e0061",
+    "keyScope": "LOCAL_CYPHOX_SERVICE"
+  },
+  "artifactPaths": {
+    "json": "C:\\Users\\Admin\\Desktop\\S SUMANTH\\FILES\\Hackathon\\attempts\\Attempt20\\CYPHOX_TAMPER_ONLY_READY\\data\\certificates\\CERT-USB-003.json",
+    "html": "C:\\Users\\Admin\\Desktop\\S SUMANTH\\FILES\\Hackathon\\attempts\\Attempt20\\CYPHOX_TAMPER_ONLY_READY\\data\\certificates\\CERT-USB-003.html",
+    "qrPng": "C:\\Users\\Admin\\Desktop\\S SUMANTH\\FILES\\Hackathon\\attempts\\Attempt20\\CYPHOX_TAMPER_ONLY_READY\\data\\certificates\\CERT-USB-003-QR.png"
+  }
+}

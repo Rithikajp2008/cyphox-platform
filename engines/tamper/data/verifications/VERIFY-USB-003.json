@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "1.0",
+  "recordType": "TAMPER_VERIFICATION_RESULT",
+  "identifiers": {
+    "userId": "LOCAL-USER",
+    "deviceId": "DRIVE-D",
+    "sessionId": "TAMPER-SESSION-001",
+    "jobId": "TAMPER-VERIFY-JOB-003",
+    "baselineId": "BASELINE-USB-001",
+    "verificationId": "VERIFY-USB-003"
+  },
+  "target": {
+    "path": "D:\\Cyphox_Tamper_Test",
+    "type": "FOLDER",
+    "readOnly": true
+  },
+  "verifiedAtUtc": "2026-09-27T12:57:30.715397+00:00",
+  "verificationState": "VERIFIED",
+  "tamperStatus": "TAMPERED",
+  "baselineIntegrity": {
+    "valid": true,
+    "expected": "b6e353e3247f5d473ecde24144aa89bc53152b04c341d6bac45a67ab5d6f478b",
+    "actual": "b6e353e3247f5d473ecde24144aa89bc53152b04c341d6bac45a67ab5d6f478b"
+  },
+  "options": {
+    "hashAlgorithm": "SHA-256",
+    "checkMetadata": true,
+    "maxFiles": 1000
+  },
+  "summary": {
+    "baselineFiles": 3,
+    "currentFiles": 4,
+    "added": 1,
+    "deleted": 0,
+    "modified": 1,
+    "renamed": 1,
+    "metadataChanged": 0,
+    "unchanged": 1,
+    "scanErrorCount": 0,
+    "traversalComplete": true,
+    "complete": true,
+    "changeCount": 3
+  },
+  "changes": {
+    "added": [
+      {
+        "path": "newfile.txt",
+        "sha256": "031be1c9e8689ada835fddb6b3e7cac831e33a737f17813c44a0c8f2f1447c96",
+        "sizeBytes": 23
+      }
+    ],
+    "deleted": [],
+    "modified": [
+      {
+        "path": "file1.txt",
+        "beforeSha256": "3a06370b600e1d7bf564405a5f12f10775b1e36c1b96d036503cd13f5cb759c5",
+        "afterSha256": "7723c1576e632b614738abe169efcb33d67a0c0e68527e470475abce95cd6d63",
+        "beforeSizeBytes": 19,
+        "afterSizeBytes": 29
+      }
+    ],
+    "renamed": [
+      {
+        "from": "file2.txt",
+        "to": "file2-renamed.txt",
+        "sha256": "23cdcd6fdb92d87d4ae56aac3447848dafeebebbf9da86efa4fd19f1d654255c",
+        "sizeBytes": 19
+      }
+    ],
+    "metadataChanged": []
+  },
+  "scanErrors": [],
+  "verificationIntegritySha256": "8fc58c974486bb941bf6f1e05bf23d5ecafbc69deb871cb6f5ee958a69b69470"
+}

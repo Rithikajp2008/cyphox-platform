@@ -1,0 +1,1311 @@
+{
+  "schema_version": "2.0",
+  "report_type": "DIGITAL_FORENSIC_REPORT",
+  "identifiers": {
+    "userId": "LOCAL-USER",
+    "deviceId": "DRIVE-D",
+    "sessionId": "SESSION-USB-002",
+    "jobId": "USB-API-002"
+  },
+  "target": {
+    "path": "D:\\",
+    "kind": "FOLDER",
+    "readOnly": true
+  },
+  "device": {
+    "deviceId": "DRIVE-D",
+    "mountPoint": "D:\\",
+    "driveType": "REMOVABLE",
+    "filesystem": "FAT32",
+    "volumeLabel": "",
+    "volumeSerial": "1093AA4E",
+    "totalBytes": 61509107712,
+    "freeBytes": 57498140672,
+    "systemDisk": false
+  },
+  "collection": {
+    "started_at_utc": "2026-09-26T16:17:49.172117+00:00",
+    "completed_at_utc": "2026-09-26T16:19:57.884463+00:00",
+    "host": "DESKTOP-ONNC013",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.12",
+    "linksFollowed": false
+  },
+  "summary": {
+    "file_count": 39,
+    "total_bytes": 4008886772,
+    "finding_count": 5,
+    "scan_error_count": 0,
+    "hash_algorithm": "SHA-256",
+    "traversalComplete": true,
+    "complete": true,
+    "completedWithWarnings": false
+  },
+  "statistics": {
+    "extensions": {
+      ".dat": 1,
+      ".dmg": 1,
+      ".exe": 1,
+      ".jpeg": 3,
+      ".jpg": 1,
+      ".mkv": 2,
+      ".pdf": 24,
+      ".txt": 4,
+      "[no extension]": 2
+    },
+    "categories": {
+      "DOCUMENT": 24,
+      "EXECUTABLE_OR_SCRIPT": 1,
+      "IMAGE": 4,
+      "OTHER": 4,
+      "TEXT": 4,
+      "VIDEO": 2
+    }
+  },
+  "findings": [
+    {
+      "severity": "INFO",
+      "type": "ZERO_BYTE_FILES",
+      "count": 2,
+      "description": "Zero-byte allocated files were found.",
+      "items": [
+        "D:\\Android\\data\\.nomedia",
+        "D:\\Cyphox_Forensic_Test\\zero-byte.txt"
+      ]
+    },
+    {
+      "severity": "INFO",
+      "type": "HIDDEN_OR_SYSTEM_FILES",
+      "count": 1,
+      "description": "Hidden or system-attributed files were found.",
+      "items": [
+        "D:\\Android\\data\\.nomedia"
+      ]
+    },
+    {
+      "severity": "WARNING",
+      "type": "CONTENT_EXTENSION_MISMATCH",
+      "count": 1,
+      "description": "File content signature does not match its extension.",
+      "items": [
+        "D:\\Cyphox_Forensic_Test\\fake.jpg"
+      ]
+    },
+    {
+      "severity": "INFO",
+      "type": "EXECUTABLE_OR_SCRIPT_FILES",
+      "count": 1,
+      "description": "Executable or script files are present; this is not a malware verdict.",
+      "items": [
+        "D:\\Install SanDisk Software.exe"
+      ]
+    },
+    {
+      "severity": "INFO",
+      "type": "DUPLICATE_CONTENT",
+      "count": 2,
+      "description": "Files with identical SHA-256 hashes were found.",
+      "items": [
+        {
+          "sha256": "59cbab27b33841fb80dbea446c44fbf82f42eb90757f735aa58c23bdfa9d331e",
+          "first_path": "D:\\Cyphox_Forensic_Test\\duplicate1.txt",
+          "duplicate_path": "D:\\Cyphox_Forensic_Test\\duplicate2.txt"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "first_path": "D:\\Android\\data\\.nomedia",
+          "duplicate_path": "D:\\Cyphox_Forensic_Test\\zero-byte.txt"
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "executablesAndScripts": [
+      "D:\\Install SanDisk Software.exe"
+    ],
+    "keywordMatches": [],
+    "hiddenOrSystem": [
+      "D:\\Android\\data\\.nomedia"
+    ]
+  },
+  "residual_data_analysis": {
+    "scope": "ALLOCATED_FILES_ONLY",
+    "zeroByteFiles": 2,
+    "contentExtensionMismatches": 1,
+    "note": "This service does not carve deleted/unallocated space; that remains the recovery-engine responsibility."
+  },
+  "duplicates": [
+    {
+      "sha256": "59cbab27b33841fb80dbea446c44fbf82f42eb90757f735aa58c23bdfa9d331e",
+      "first_path": "D:\\Cyphox_Forensic_Test\\duplicate1.txt",
+      "duplicate_path": "D:\\Cyphox_Forensic_Test\\duplicate2.txt"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "first_path": "D:\\Android\\data\\.nomedia",
+      "duplicate_path": "D:\\Cyphox_Forensic_Test\\zero-byte.txt"
+    }
+  ],
+  "scan_errors": [],
+  "evidence_manifest": [
+    {
+      "evidence_id": "EVID-8B1EE7EB3852",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Install SanDisk Software.dmg",
+      "path": "D:\\Install SanDisk Software.dmg",
+      "relative_path": "Install SanDisk Software.dmg",
+      "extension": ".dmg",
+      "mime_type": "application/octet-stream",
+      "category": "OTHER",
+      "size_bytes": 552605,
+      "timestamps": {
+        "created_utc": "2021-12-07T09:48:48.870000+00:00",
+        "modified_utc": "2021-09-23T07:31:40+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": null,
+      "sha256": "bbca30d17ef5be64d901610dc57f8ab69eec1d1d9a4c96d88b53b85b895705f8"
+    },
+    {
+      "evidence_id": "EVID-375A501EAA5E",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Install SanDisk Software.exe",
+      "path": "D:\\Install SanDisk Software.exe",
+      "relative_path": "Install SanDisk Software.exe",
+      "extension": ".exe",
+      "mime_type": "application/x-msdownload",
+      "category": "EXECUTABLE_OR_SCRIPT",
+      "size_bytes": 707152,
+      "timestamps": {
+        "created_utc": "2021-12-07T09:48:49.280000+00:00",
+        "modified_utc": "2021-09-23T07:32:04+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rwxrwxrwx",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "EXECUTABLE",
+        "expectedExtensions": [
+          ".dll",
+          ".exe",
+          ".scr",
+          ".sys"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "4060878795c0c43631fc8a61c175703322e181cc967978e89693e0ba6489ba5f"
+    },
+    {
+      "evidence_id": "EVID-74DE807713B0",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "SanDisk Software.pdf",
+      "path": "D:\\SanDisk Software.pdf",
+      "relative_path": "SanDisk Software.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 300509,
+      "timestamps": {
+        "created_utc": "2021-12-07T09:48:49.850000+00:00",
+        "modified_utc": "2021-09-23T07:31:24+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "04efd51fecc07d4f3cd62e457d38aff91d030c4f3c39f0a6d4e91f1c96d89123"
+    },
+    {
+      "evidence_id": "EVID-367A38CE9EE6",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "WPSettings.dat",
+      "path": "D:\\System Volume Information\\WPSettings.dat",
+      "relative_path": "System Volume Information\\WPSettings.dat",
+      "extension": ".dat",
+      "mime_type": "application/octet-stream",
+      "category": "OTHER",
+      "size_bytes": 12,
+      "timestamps": {
+        "created_utc": "2021-12-07T09:48:40.480000+00:00",
+        "modified_utc": "2021-12-07T09:48:42+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": null,
+      "sha256": "253b10642322a9bc7c8c6fba132421ba47e244d25678bfdc70a8feb856028353"
+    },
+    {
+      "evidence_id": "EVID-AC363C20A778",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "IndexerVolumeGuid",
+      "path": "D:\\System Volume Information\\IndexerVolumeGuid",
+      "relative_path": "System Volume Information\\IndexerVolumeGuid",
+      "extension": null,
+      "mime_type": "application/octet-stream",
+      "category": "OTHER",
+      "size_bytes": 76,
+      "timestamps": {
+        "created_utc": "2021-12-07T09:48:43.470000+00:00",
+        "modified_utc": "2021-12-07T09:48:44+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": null,
+      "sha256": "92a0159eab32d980c759ae030d37df23753acbd246bdbb810b1202b485bbd0ab"
+    },
+    {
+      "evidence_id": "EVID-A164A4C2F110",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "24CS101 - Programming in C++.pdf",
+      "path": "D:\\I YEAR BOOKS\\C++\\24CS101 - Programming in C++.pdf",
+      "relative_path": "I YEAR BOOKS\\C++\\24CS101 - Programming in C++.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 103882,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:19.790000+00:00",
+        "modified_utc": "2024-09-29T18:05:38+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "e40028530d4d9a9ac2a21ea5af8e8d3f32b159248eb98d0751556a08c639ca25"
+    },
+    {
+      "evidence_id": "EVID-6300B951F130",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "c-the-complete-reference-4th-edition_compress.pdf",
+      "path": "D:\\I YEAR BOOKS\\C++\\c-the-complete-reference-4th-edition_compress.pdf",
+      "relative_path": "I YEAR BOOKS\\C++\\c-the-complete-reference-4th-edition_compress.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 3129946,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:19.820000+00:00",
+        "modified_utc": "2024-09-29T18:05:54+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "449c9bf797dbd0860ae35120dbb9296ac434bb108d1e0b223b323897ccf0d6cc"
+    },
+    {
+      "evidence_id": "EVID-750702DCEF40",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "digital_design-__morris_mano-fifth_edition.pdf",
+      "path": "D:\\I YEAR BOOKS\\DPSD\\digital_design-__morris_mano-fifth_edition.pdf",
+      "relative_path": "I YEAR BOOKS\\DPSD\\digital_design-__morris_mano-fifth_edition.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 2664810,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:20.310000+00:00",
+        "modified_utc": "2024-09-29T18:09:44+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "4546c3ef216b80db56cb9ebedbe87863c045c8d9aec755ab1b536cbbfa4f0c70"
+    },
+    {
+      "evidence_id": "EVID-ADDA01F97E71",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "DIGITAL_ELECTRONICS-by-Flyod.pdf",
+      "path": "D:\\I YEAR BOOKS\\DPSD\\DIGITAL_ELECTRONICS-by-Flyod.pdf",
+      "relative_path": "I YEAR BOOKS\\DPSD\\DIGITAL_ELECTRONICS-by-Flyod.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 23874459,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:20.530000+00:00",
+        "modified_utc": "2024-09-29T18:10:28+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "5abe5e28bf052caa0cd6128292b161edc70103fad6aef0662b0028bb993a4420"
+    },
+    {
+      "evidence_id": "EVID-30070DEE3958",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "DPSD.pdf",
+      "path": "D:\\I YEAR BOOKS\\DPSD\\DPSD.pdf",
+      "relative_path": "I YEAR BOOKS\\DPSD\\DPSD.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 95174,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:20.930000+00:00",
+        "modified_utc": "2024-09-29T18:09:34+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "8a80d0af06f0d0aff410115a34df476d263d7fada7eb96843097a711ea99aeb2"
+    },
+    {
+      "evidence_id": "EVID-CF3043A62C34",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Fundamentals-of-logic-design-7th-ed-Charles H Roth.pdf",
+      "path": "D:\\I YEAR BOOKS\\DPSD\\Fundamentals-of-logic-design-7th-ed-Charles H Roth.pdf",
+      "relative_path": "I YEAR BOOKS\\DPSD\\Fundamentals-of-logic-design-7th-ed-Charles H Roth.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 28839506,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:20.960000+00:00",
+        "modified_utc": "2024-09-29T18:10:46+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "167b3d1bfd8c0085b085c6434c1b4d15827f5937a92503b35482dee6d7f68d42"
+    },
+    {
+      "evidence_id": "EVID-FC110516E212",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "24CH101 - ENGINEERING CHEMISTRY.pdf",
+      "path": "D:\\I YEAR BOOKS\\Engg Che\\24CH101 - ENGINEERING CHEMISTRY.pdf",
+      "relative_path": "I YEAR BOOKS\\Engg Che\\24CH101 - ENGINEERING CHEMISTRY.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 150146,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:21.520000+00:00",
+        "modified_utc": "2024-09-29T18:15:46+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "a0cef626fdb4b9ee7572d645f47540b153504e7d3620926f2673df32d97c6f87"
+    },
+    {
+      "evidence_id": "EVID-4E7AB4118E9F",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Chemistry-by-jain-and-jain.pdf",
+      "path": "D:\\I YEAR BOOKS\\Engg Che\\Chemistry-by-jain-and-jain.pdf",
+      "relative_path": "I YEAR BOOKS\\Engg Che\\Chemistry-by-jain-and-jain.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 13493685,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:21.540000+00:00",
+        "modified_utc": "2024-09-29T18:01:32+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "59c082385b1d7346fb3025a3080a3c68bc1784a745b5d66dec757af7ede37160"
+    },
+    {
+      "evidence_id": "EVID-4698722D9662",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Engineering Chemistry - Shikha Agarwal.pdf",
+      "path": "D:\\I YEAR BOOKS\\Engg Che\\Engineering Chemistry - Shikha Agarwal.pdf",
+      "relative_path": "I YEAR BOOKS\\Engg Che\\Engineering Chemistry - Shikha Agarwal.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 32740874,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:21.900000+00:00",
+        "modified_utc": "2024-09-29T18:02:22+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "5b9e709caf4f0009d2c917159557ce6652b5bf8f1f0a19536a734a77425cd276"
+    },
+    {
+      "evidence_id": "EVID-98F51A8404F3",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Peter Gründler (auth.) - Chemical Sensors_ An Introduction for Scientists and Engineers-Springer-Verlag Berlin Heidelberg (2007).pdf",
+      "path": "D:\\I YEAR BOOKS\\Engg Che\\Peter Gründler (auth.) - Chemical Sensors_ An Introduction for Scientists and Engineers-Springer-Verlag Berlin Heidelberg (2007).pdf",
+      "relative_path": "I YEAR BOOKS\\Engg Che\\Peter Gründler (auth.) - Chemical Sensors_ An Introduction for Scientists and Engineers-Springer-Verlag Berlin Heidelberg (2007).pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 2418834,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:22.790000+00:00",
+        "modified_utc": "2024-09-29T18:02:04+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "aaf14394b9b4fe856cb12f61dfb1671258cecdc3af39a807b904ea13453ac0cf"
+    },
+    {
+      "evidence_id": "EVID-F7EA834CC04B",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "24GE101- Heritage of Tamils.pdf",
+      "path": "D:\\I YEAR BOOKS\\Heritage of Tamil\\24GE101- Heritage of Tamils.pdf",
+      "relative_path": "I YEAR BOOKS\\Heritage of Tamil\\24GE101- Heritage of Tamils.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 176582,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:23.010000+00:00",
+        "modified_utc": "2024-09-29T18:16:24+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "dd056aa47739c432ed01ecef7abfe29db599da02b8ff47b47633d4fa04c3c178"
+    },
+    {
+      "evidence_id": "EVID-FE6F852BD557",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Keeladi-Book-English.pdf",
+      "path": "D:\\I YEAR BOOKS\\Heritage of Tamil\\Keeladi-Book-English.pdf",
+      "relative_path": "I YEAR BOOKS\\Heritage of Tamil\\Keeladi-Book-English.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 6154830,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:23.030000+00:00",
+        "modified_utc": "2024-09-29T18:04:34+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "6a1b62b7e6e0552cee7e8e8b1bf193d5dec3d991e6cb40f504f9a2833fb2864e"
+    },
+    {
+      "evidence_id": "EVID-199EDFB42B16",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Social life of Tamils Book in PDF.pdf",
+      "path": "D:\\I YEAR BOOKS\\Heritage of Tamil\\Social life of Tamils Book in PDF.pdf",
+      "relative_path": "I YEAR BOOKS\\Heritage of Tamil\\Social life of Tamils Book in PDF.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 133490974,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:23.170000+00:00",
+        "modified_utc": "2024-09-29T18:05:00+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "6596ecbc1aa84431474080ae77c36e2b49817daec9539e882a07e910ee203f18"
+    },
+    {
+      "evidence_id": "EVID-CFE78EF61622",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Idea Lab syllabus.pdf",
+      "path": "D:\\I YEAR BOOKS\\Idea Lab - I\\Idea Lab syllabus.pdf",
+      "relative_path": "I YEAR BOOKS\\Idea Lab - I\\Idea Lab syllabus.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 147990,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:26.720000+00:00",
+        "modified_utc": "2024-09-30T00:39:44+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "0772525bb08542ece1a0fd2e51f2ebd4296921571fdc48cc91ff5ffe350f1d84"
+    },
+    {
+      "evidence_id": "EVID-F4EA2D6506AF",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "24MA101-Matrics and calculus.pdf",
+      "path": "D:\\I YEAR BOOKS\\Matrices and Calculus\\24MA101-Matrics and calculus.pdf",
+      "relative_path": "I YEAR BOOKS\\Matrices and Calculus\\24MA101-Matrics and calculus.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 142197,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:26.760000+00:00",
+        "modified_utc": "2024-09-29T17:59:14+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "7bb89ff971117cf1152796ad5873f9331253717c5bd33294b601a6022e8713e5"
+    },
+    {
+      "evidence_id": "EVID-8CADF8E17793",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Advanced Engineering Mathematics 10th Edition.pdf",
+      "path": "D:\\I YEAR BOOKS\\Matrices and Calculus\\Advanced Engineering Mathematics 10th Edition.pdf",
+      "relative_path": "I YEAR BOOKS\\Matrices and Calculus\\Advanced Engineering Mathematics 10th Edition.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 22524929,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:26.810000+00:00",
+        "modified_utc": "2024-09-29T18:00:00+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "401967f23ceb4e8e46d53e121c9a20eb0dcc4177937c964e299811a5141f0f53"
+    },
+    {
+      "evidence_id": "EVID-C098BE246593",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Engineering Mathematics I and II  [For Semesters I and II] by Veerarajan (z-lib.org).pdf",
+      "path": "D:\\I YEAR BOOKS\\Matrices and Calculus\\Engineering Mathematics I and II  [For Semesters I and II] by Veerarajan (z-lib.org).pdf",
+      "relative_path": "I YEAR BOOKS\\Matrices and Calculus\\Engineering Mathematics I and II  [For Semesters I and II] by Veerarajan (z-lib.org).pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 41130308,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:27.160000+00:00",
+        "modified_utc": "2024-09-29T17:59:38+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "f8545c2a67afc51267e262f893a2e57516e88e96a65eae6e95536230ec2c2199"
+    },
+    {
+      "evidence_id": "EVID-E8033C7CE320",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "16_EBOOK-7th_ed_software_engineering_a_practitioners_approach_by_roger_s._pressman_.pdf",
+      "path": "D:\\I YEAR BOOKS\\SDP\\16_EBOOK-7th_ed_software_engineering_a_practitioners_approach_by_roger_s._pressman_.pdf",
+      "relative_path": "I YEAR BOOKS\\SDP\\16_EBOOK-7th_ed_software_engineering_a_practitioners_approach_by_roger_s._pressman_.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 21023620,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:28.300000+00:00",
+        "modified_utc": "2024-09-29T18:07:04+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "58e50547d0070be436b4fd57a8c3831c9764d775bdb594056ef483b80f0771d5"
+    },
+    {
+      "evidence_id": "EVID-DF0ADB3CFBA7",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "2.Web-Technologies-A-Computer-Science-Perspective-J.-Jackson-Pearson-2007-BBS.pdf",
+      "path": "D:\\I YEAR BOOKS\\SDP\\2.Web-Technologies-A-Computer-Science-Perspective-J.-Jackson-Pearson-2007-BBS.pdf",
+      "relative_path": "I YEAR BOOKS\\SDP\\2.Web-Technologies-A-Computer-Science-Perspective-J.-Jackson-Pearson-2007-BBS.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 6733970,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:29.360000+00:00",
+        "modified_utc": "2024-09-29T18:08:08+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "fd603fdf16d46a02974218c6942655e20d7e3ae16b19abcc6177fa12c48884ef"
+    },
+    {
+      "evidence_id": "EVID-6CB658812780",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "24CS102 - Software Development Practices.pdf",
+      "path": "D:\\I YEAR BOOKS\\SDP\\24CS102 - Software Development Practices.pdf",
+      "relative_path": "I YEAR BOOKS\\SDP\\24CS102 - Software Development Practices.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 132734,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:29.830000+00:00",
+        "modified_utc": "2024-09-29T18:06:42+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "c02a4ae6b016f1e81773e14432f7e0cae456c28d3a259f05f6e1f42b67f8d6da"
+    },
+    {
+      "evidence_id": "EVID-7F3E2B8DFF7A",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "AgileProdMgt_sample.pdf",
+      "path": "D:\\I YEAR BOOKS\\SDP\\AgileProdMgt_sample.pdf",
+      "relative_path": "I YEAR BOOKS\\SDP\\AgileProdMgt_sample.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 1374132,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:29.880000+00:00",
+        "modified_utc": "2024-09-29T18:08:26+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "378578e8302bc917ade846ab4d015ba1e33ee7374a63c2fed09cbfabd138294f"
+    },
+    {
+      "evidence_id": "EVID-F036982A705A",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "internet how program works deitel and deitel.pdf",
+      "path": "D:\\I YEAR BOOKS\\SDP\\internet how program works deitel and deitel.pdf",
+      "relative_path": "I YEAR BOOKS\\SDP\\internet how program works deitel and deitel.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 52336157,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:29.930000+00:00",
+        "modified_utc": "2024-09-29T18:08:08+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "6c05af62ad4905c15dc67c641661bb752f58fdc4174d3a700a9b3eb6563ce2e1"
+    },
+    {
+      "evidence_id": "EVID-D22123041363",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "progit book 2nd edition.pdf",
+      "path": "D:\\I YEAR BOOKS\\SDP\\progit book 2nd edition.pdf",
+      "relative_path": "I YEAR BOOKS\\SDP\\progit book 2nd edition.pdf",
+      "extension": ".pdf",
+      "mime_type": "application/pdf",
+      "category": "DOCUMENT",
+      "size_bytes": 18870791,
+      "timestamps": {
+        "created_utc": "2025-10-07T08:13:31.470000+00:00",
+        "modified_utc": "2024-09-29T18:07:28+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "PDF",
+        "expectedExtensions": [
+          ".pdf"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "0fc2bbcfa5f42691bdf4504d02ffdf4803adf1ff14205582c80bfe85bb038fd5"
+    },
+    {
+      "evidence_id": "EVID-7451C3A15CD8",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Meiyazhagan (2024)1.4GB.mkv",
+      "path": "D:\\Movies\\Meiyazhagan (2024)1.4GB.mkv",
+      "relative_path": "Movies\\Meiyazhagan (2024)1.4GB.mkv",
+      "extension": ".mkv",
+      "mime_type": "video/x-matroska",
+      "category": "VIDEO",
+      "size_bytes": 1603184601,
+      "timestamps": {
+        "created_utc": "2026-01-08T08:51:23.950000+00:00",
+        "modified_utc": "2025-12-07T18:07:34+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": null,
+      "sha256": "e338e5b7ffaf8e2d767be2fcdad1c13c9cabf03b7e9de548692d541274bcfec0"
+    },
+    {
+      "evidence_id": "EVID-E95BCF62FED5",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "Harry Potter and the Sorcerer's Stone  (2002).mkv",
+      "path": "D:\\Movies\\Harry Potter and the Sorcerer's Stone  (2002).mkv",
+      "relative_path": "Movies\\Harry Potter and the Sorcerer's Stone  (2002).mkv",
+      "extension": ".mkv",
+      "mime_type": "video/x-matroska",
+      "category": "VIDEO",
+      "size_bytes": 1991892033,
+      "timestamps": {
+        "created_utc": "2026-01-08T08:55:29.730000+00:00",
+        "modified_utc": "2024-06-04T00:43:56+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": null,
+      "sha256": "8d5376dac176ef0f651ff02aaf7a38455aad6cca75e9dbada949e5eb19c84e7e"
+    },
+    {
+      "evidence_id": "EVID-459184F00742",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": ".nomedia",
+      "path": "D:\\Android\\data\\.nomedia",
+      "relative_path": "Android\\data\\.nomedia",
+      "extension": null,
+      "mime_type": "application/octet-stream",
+      "category": "OTHER",
+      "size_bytes": 0,
+      "timestamps": {
+        "created_utc": "2035-06-11T20:08:21+00:00",
+        "modified_utc": "2035-06-11T20:08:20+00:00",
+        "accessed_utc": "2035-06-11T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": true,
+      "content_signature": null,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "evidence_id": "EVID-3E0EF4D234BC",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "image1.jpeg",
+      "path": "D:\\seminar\\image1.jpeg",
+      "relative_path": "seminar\\image1.jpeg",
+      "extension": ".jpeg",
+      "mime_type": "image/jpeg",
+      "category": "IMAGE",
+      "size_bytes": 60910,
+      "timestamps": {
+        "created_utc": "2026-09-21T08:06:27.080000+00:00",
+        "modified_utc": "2026-09-21T07:19:10+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "JPEG",
+        "expectedExtensions": [
+          ".jpeg",
+          ".jpg"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "a7ed83e8fac8a4dc7ea369dd22fd6510c13e76e0d287ed9e9aa61e10856578d8"
+    },
+    {
+      "evidence_id": "EVID-02A95A8CA9FA",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "image2.jpeg",
+      "path": "D:\\seminar\\image2.jpeg",
+      "relative_path": "seminar\\image2.jpeg",
+      "extension": ".jpeg",
+      "mime_type": "image/jpeg",
+      "category": "IMAGE",
+      "size_bytes": 187458,
+      "timestamps": {
+        "created_utc": "2026-09-21T08:06:27.140000+00:00",
+        "modified_utc": "2026-09-21T07:20:04+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "JPEG",
+        "expectedExtensions": [
+          ".jpeg",
+          ".jpg"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "5784aa839f9f408a36609b74de9a53135fbfddb3c2f2188f2be41e33a88b4bd6"
+    },
+    {
+      "evidence_id": "EVID-8E253CBC7522",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "image3.jpeg",
+      "path": "D:\\seminar\\image3.jpeg",
+      "relative_path": "seminar\\image3.jpeg",
+      "extension": ".jpeg",
+      "mime_type": "image/jpeg",
+      "category": "IMAGE",
+      "size_bytes": 250798,
+      "timestamps": {
+        "created_utc": "2026-09-21T08:06:27.180000+00:00",
+        "modified_utc": "2026-09-21T07:20:54+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "JPEG",
+        "expectedExtensions": [
+          ".jpeg",
+          ".jpg"
+        ],
+        "matchesExtension": true
+      },
+      "sha256": "59bf08e5d803a34f1f114255f22d4f7dd03c3b3b66214803b5e6c95b06b30652"
+    },
+    {
+      "evidence_id": "EVID-65EB20CF6947",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "normal.txt",
+      "path": "D:\\Cyphox_Forensic_Test\\normal.txt",
+      "relative_path": "Cyphox_Forensic_Test\\normal.txt",
+      "extension": ".txt",
+      "mime_type": "text/plain",
+      "category": "TEXT",
+      "size_bytes": 30,
+      "timestamps": {
+        "created_utc": "2026-09-26T14:32:27.180000+00:00",
+        "modified_utc": "2026-09-26T14:32:28+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": null,
+      "sha256": "6d8b0c35ddb22b3a98437ce64c45430c27f6fd110d92e5f2f3b4ee0e778813bf"
+    },
+    {
+      "evidence_id": "EVID-40B86C731DAA",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "duplicate1.txt",
+      "path": "D:\\Cyphox_Forensic_Test\\duplicate1.txt",
+      "relative_path": "Cyphox_Forensic_Test\\duplicate1.txt",
+      "extension": ".txt",
+      "mime_type": "text/plain",
+      "category": "TEXT",
+      "size_bytes": 24,
+      "timestamps": {
+        "created_utc": "2026-09-26T14:36:05.820000+00:00",
+        "modified_utc": "2026-09-26T14:36:06+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": null,
+      "sha256": "59cbab27b33841fb80dbea446c44fbf82f42eb90757f735aa58c23bdfa9d331e"
+    },
+    {
+      "evidence_id": "EVID-21A439D6BEA1",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "duplicate2.txt",
+      "path": "D:\\Cyphox_Forensic_Test\\duplicate2.txt",
+      "relative_path": "Cyphox_Forensic_Test\\duplicate2.txt",
+      "extension": ".txt",
+      "mime_type": "text/plain",
+      "category": "TEXT",
+      "size_bytes": 24,
+      "timestamps": {
+        "created_utc": "2026-09-26T14:36:23.510000+00:00",
+        "modified_utc": "2026-09-26T14:36:06+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": null,
+      "sha256": "59cbab27b33841fb80dbea446c44fbf82f42eb90757f735aa58c23bdfa9d331e"
+    },
+    {
+      "evidence_id": "EVID-ED9DC5E4C499",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "zero-byte.txt",
+      "path": "D:\\Cyphox_Forensic_Test\\zero-byte.txt",
+      "relative_path": "Cyphox_Forensic_Test\\zero-byte.txt",
+      "extension": ".txt",
+      "mime_type": "text/plain",
+      "category": "TEXT",
+      "size_bytes": 0,
+      "timestamps": {
+        "created_utc": "2026-09-26T14:48:18.330000+00:00",
+        "modified_utc": "2026-09-26T14:48:20+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": null,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "evidence_id": "EVID-C98C3AF49646",
+      "jobId": "USB-API-002",
+      "sessionId": "SESSION-USB-002",
+      "deviceId": "DRIVE-D",
+      "name": "fake.jpg",
+      "path": "D:\\Cyphox_Forensic_Test\\fake.jpg",
+      "relative_path": "Cyphox_Forensic_Test\\fake.jpg",
+      "extension": ".jpg",
+      "mime_type": "image/jpeg",
+      "category": "IMAGE",
+      "size_bytes": 10,
+      "timestamps": {
+        "created_utc": "2026-09-26T14:48:59.720000+00:00",
+        "modified_utc": "2026-09-26T14:49:00+00:00",
+        "accessed_utc": "2026-09-25T18:30:00+00:00"
+      },
+      "permissions": "-rw-rw-rw-",
+      "attributes": [
+        "ARCHIVE"
+      ],
+      "hidden": false,
+      "content_signature": {
+        "detectedType": "EXECUTABLE",
+        "expectedExtensions": [
+          ".dll",
+          ".exe",
+          ".scr",
+          ".sys"
+        ],
+        "matchesExtension": false
+      },
+      "sha256": "bd38d586f0e525340c59e58fb9c3e2beee07adf993d69b3e2ed38ecb38889710"
+    }
+  ],
+  "report_integrity_sha256": "48aa05b810703b75622fee9dd2dba7834cc1e2abef86ea23d483f525044bbc1b"
+}
