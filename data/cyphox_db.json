@@ -83,6 +83,27 @@
   ],
   "operations": [
     {
+      "id": "op_1790706975477_by5bbt",
+      "timestamp": "2026-09-29T18:36:15.477Z",
+      "type": "RECOVER_LAST_FILE",
+      "target": "task 2",
+      "status": "COMPLETED",
+      "userId": "guest",
+      "details": "Recovered last deleted file 'task 2' to C:\\Users\\Rithika\\Documents\\SIH\\data\\recovered",
+      "restoredCount": 1
+    },
+    {
+      "id": "op_1790706597010_ya58n5",
+      "timestamp": "2026-09-29T18:29:57.010Z",
+      "type": "DATA_ERASURE",
+      "target": "C:\\Users\\Rithika\\Desktop\\task -1",
+      "status": "COMPLETED",
+      "userId": "usr_9d92b901-f7fa-41b4-88e8-db31f8c38f01",
+      "details": "Sanitized using NIST_800_88_CLEAR (1 passes). Certificate: CYP-CERT-2026-768440",
+      "certificateId": "CYP-CERT-2026-768440",
+      "verified": true
+    },
+    {
       "id": "op_1790705249441_ias6xi",
       "timestamp": "2026-09-29T18:07:29.441Z",
       "type": "DATA_ERASURE",
@@ -1150,6 +1171,34 @@
     }
   ],
   "certificates": [
+    {
+      "certificateId": "CYP-CERT-2026-768440",
+      "issuedAt": "2026-09-29T18:29:56.955Z",
+      "operator": {
+        "name": "rithu",
+        "email": "25ad131@rmkcet.ac.in",
+        "role": "Forensics Specialist"
+      },
+      "target": {
+        "name": "C:\\Users\\Rithika\\Desktop\\task -1",
+        "serialNumber": "SN-8F691934",
+        "capacity": "512 GB",
+        "interface": "NVMe/SATA"
+      },
+      "operation": {
+        "type": "DATA_ERASURE",
+        "standard": "NIST SP 800-88 Rev 1 (Clear)",
+        "passes": 1,
+        "preOperationHash": "DIRECTORY_TREE_OVERWRITTEN",
+        "postOperationHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "entropyResult": 0,
+        "verificationStatus": "VERIFIED"
+      },
+      "digitalSignature": "728e08c2257568b5d11480aefdf1024e8f8c7989cff6b347828b9ccb0e1fccf9",
+      "qrCode": "data:image/png;base64,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",
+      "verificationUrl": "http://localhost:5000/api/certificates/CYP-CERT-2026-768440/verify",
+      "userId": "usr_9d92b901-f7fa-41b4-88e8-db31f8c38f01"
+    },
     {
       "certificateId": "CYP-CERT-2026-486946",
       "issuedAt": "2026-09-29T18:07:29.359Z",
@@ -48295,6 +48344,30 @@
         "wipedAt": "2026-09-29T18:07:29.358Z"
       },
       "completedAt": "2026-09-29T18:07:29.358Z"
+    },
+    "wipe_job_1790706596933_140lh6": {
+      "id": "wipe_job_1790706596933_140lh6",
+      "userId": "usr_9d92b901-f7fa-41b4-88e8-db31f8c38f01",
+      "targetType": "file",
+      "targetPath": "C:\\Users\\Rithika\\Desktop\\task -1",
+      "targetName": "C:\\Users\\Rithika\\Desktop\\task -1",
+      "method": "NIST_800_88_CLEAR",
+      "status": "COMPLETED",
+      "percentage": 100,
+      "currentPass": 1,
+      "totalPasses": 1,
+      "startedAt": "2026-09-29T18:29:56.933Z",
+      "updatedAt": "2026-09-29T18:29:56.955Z",
+      "pass": 1,
+      "result": {
+        "success": true,
+        "originalPath": "C:\\Users\\Rithika\\Desktop\\task -1",
+        "method": "NIST_800_88_CLEAR",
+        "preWipeHash": "DIRECTORY_TREE_OVERWRITTEN",
+        "postWipeState": "RECURSIVELY_PURGED_AND_UNLINKED",
+        "wipedAt": "2026-09-29T18:29:56.955Z"
+      },
+      "completedAt": "2026-09-29T18:29:56.955Z"
     }
   },
   "devices": [
@@ -48308,11 +48381,11 @@
       "fileSystem": "NTFS",
       "size": 430441492480,
       "sizeFormatted": "400.88 GB",
-      "used": 282814943232,
-      "usedFormatted": "263.39 GB",
-      "free": 147626549248,
-      "freeFormatted": "137.49 GB",
-      "percentUsed": 66,
+      "used": 291163144192,
+      "usedFormatted": "271.17 GB",
+      "free": 139278348288,
+      "freeFormatted": "129.71 GB",
+      "percentUsed": 68,
       "status": "Mounted",
       "health": "Healthy (100%)",
       "isPhysical": false,

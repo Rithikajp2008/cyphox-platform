@@ -1826,7 +1826,14 @@ Loading hex viewer sector stream...
       loadDeletedFiles();
       loadDashboardStats();
     } else {
-      alert("Recover Last failed: " + (data.message || "No deleted files found."));
+      openModal("⚡ Option 2: Recovery Notice", `
+        <div style="color:var(--amber); margin-bottom:12px; font-size:1.05rem;">
+          ⚠️ <strong>${data.message || "No deleted files recorded yet."}</strong>
+        </div>
+        <div style="font-size:.83rem; line-height:1.8; color:var(--text); margin-bottom:14px;">
+          Please use the <strong>"Delete Normal File"</strong> tool above to index a file for recovery, or choose a storage target below.
+        </div>
+      `);
     }
   }
 
